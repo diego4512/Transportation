@@ -42,7 +42,7 @@ A menetrendet érdemes naponta frissíteni (pl. cron: `0 4 * * * npm run gtfs:im
 Az app egy Node szerver (menetrend-adatbázis, értesítések, háttérfigyelő), amit az Apache (XAMPP) proxyz ki egy alútvonalon.
 
 1. **Node.js 22.13+** telepítése (https://nodejs.org, LTS).
-2. A projekt mappája lehet bárhol, nem kell a `htdocs`-ba tenni (pl. `C:\bp-utas`).
+2. A projekt mappája lehet pl. `C:\xampp\htdocs\utas`. A gyökérben lévő `.htaccess` (`Require all denied`) megakadályozza, hogy az Apache közvetlenül kiszolgálja a fájlokat (pl. a kulcsot tartalmazó `.env`-et) – ezt a fájlt ne töröld. Az app a Node szerveren keresztül, a proxyn át érhető el.
 3. `.env` létrehozása a `.env.example` alapján – ide kerül a **`BKK_API_KEY=...`** (ez a fájl nem megy fel a GitHubra).
    A `BASE_PATH=/utas/` mondja meg, milyen címen fut az Apache alatt.
 4. Telepítés és build (a projekt mappájában):

@@ -1,0 +1,4 @@
+# Ha a projekt a XAMPP htdocs mappájában van, az Apache NE szolgálja ki közvetlenül a fájlokat
+# (.env – benne a BKK API kulcs –, data/ adatbázis, VAPID kulcsok, forráskód).
+# Az app a /utas/ címen a Node szerveren keresztül érhető el (deploy/xampp/bp-utas.conf).
+Require all denied
