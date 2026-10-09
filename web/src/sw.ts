@@ -12,15 +12,19 @@ self.addEventListener('activate', () => self.clients.claim());
 cleanupOutdatedCaches();
 precacheAndRoute(self.__WB_MANIFEST);
 
+// Az app alútvonala (pl. "/utas/") – a service worker hatóköréből
+const BASE = new URL(self.registration.scope).pathname;
+const apiPath = (u: URL) => (u.pathname.startsWith(BASE) ? '/' + u.pathname.slice(BASE.length) : u.pathname);
+
 // SPA: minden oldal-navigáció az index.html-t kapja (offline is)
-registerRoute(new NavigationRoute(createHandlerBoundToURL('/index.html'), { denylist: [/^\/api\//] }));
+registerRoute(new NavigationRoute(createHandlerBoundToURL(`${BASE}index.html`), { denylist: [new RegExp(`^${BASE}api/`)] }));
 
 // Megálló- és járatadatok: ritkán változnak → gyors válasz a gyorsítótárból, háttérben frissítés
-registerRoute(({ url }) => /^\/api\/(stops\/search|stops\/nearby|stops\/[^/]+$|routes\/)/.test(url.pathname),
+registerRoute(({ url }) => /^\/api\/(stops\/search|stops\/nearby|stops\/[^/]+$|routes\/)/.test(apiPath(url)),
   new StaleWhileRevalidate({ cacheName: 'api-static', plugins: [new ExpirationPlugin({ maxEntries: 500, maxAgeSeconds: 7 * 86400 })] }));
 
 // Élő adatok: hálózat elsőként, offline a legutóbbi válasz
-registerRoute(({ url }) => url.pathname.startsWith('/api/') && !url.pathname.startsWith('/api/push'),
+registerRoute(({ url }) => apiPath(url).startsWith('/api/') && !apiPath(url).startsWith('/api/push'),
   new NetworkFirst({ cacheName: 'api-live', networkTimeoutSeconds: 6, plugins: [new ExpirationPlugin({ maxEntries: 300, maxAgeSeconds: 86400 })] }));
 
 // Térképcsempék
@@ -34,9 +38,10 @@ self.addEventListener('push', (event) => {
   event.waitUntil(self.registration.showNotification(msg.title, {
     body: msg.body,
     tag: msg.tag,
-    icon: '/icon.svg',
-    badge: '/icon.svg',
-    data: { url: msg.url ?? '/' },
+    icon: `${BASE}icon.svg`,
+    badge: `${BASE}icon.svg`,
+    // a szerver gyökérhez képesti címet küld (pl. /trip/...), ezt az alútvonalhoz igazítjuk
+    data: { url: BASE + (msg.url ?? '/').replace(/^\//, '') },
     requireInteraction: msg.requireInteraction,
   }));
 });

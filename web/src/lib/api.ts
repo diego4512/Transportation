@@ -1,15 +1,19 @@
 import type { DeparturesResponse, Status, StopGroup, SunResponse, TripResponse, Weather } from './types';
 import type { Alert, StopInfo, VehicleInfo, RouteInfo, AcInfo } from './types';
 
+/** Az app alútvonala (pl. "/utas/"), hogy Apache proxy mögött is jó címre menjenek a hívások. */
+const BASE = import.meta.env.BASE_URL;
+const url = (path: string) => BASE + path.replace(/^\//, '');
+
 async function get<T>(path: string): Promise<T> {
-  const res = await fetch(path);
+  const res = await fetch(url(path));
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(body.error ?? `HTTP ${res.status}`);
   return body as T;
 }
 
 async function send<T>(method: string, path: string, data?: unknown): Promise<T> {
-  const res = await fetch(path, { method, headers: data ? { 'content-type': 'application/json' } : {}, body: data ? JSON.stringify(data) : undefined });
+  const res = await fetch(url(path), { method, headers: data ? { 'content-type': 'application/json' } : {}, body: data ? JSON.stringify(data) : undefined });
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(body.error ?? `HTTP ${res.status}`);
   return body as T;

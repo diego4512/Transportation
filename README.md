@@ -37,9 +37,45 @@ npm run dev                   # szerver: :8787, webapp: :5173 (Vite, /api proxy)
 
 A menetrendet érdemes naponta frissíteni (pl. cron: `0 4 * * * npm run gtfs:import`), a szerver újraindítása után az új adatot használja.
 
+## Futtatás XAMPP alatt, Tailscale-en keresztül (Windows)
+
+Az app egy Node szerver (menetrend-adatbázis, értesítések, háttérfigyelő), amit az Apache (XAMPP) proxyz ki egy alútvonalon.
+
+1. **Node.js 22.13+** telepítése (https://nodejs.org, LTS).
+2. A projekt mappája lehet bárhol, nem kell a `htdocs`-ba tenni (pl. `C:\bp-utas`).
+3. `.env` létrehozása a `.env.example` alapján – ide kerül a **`BKK_API_KEY=...`** (ez a fájl nem megy fel a GitHubra).
+   A `BASE_PATH=/utas/` mondja meg, milyen címen fut az Apache alatt.
+4. Telepítés és build (a projekt mappájában):
+   ```bat
+   npm install
+   npm run gtfs:import
+   npm run build
+   ```
+5. **Apache:** másold a `deploy\xampp\bp-utas.conf` fájlt a `C:\xampp\apache\conf\extra\` mappába, és a fájl elején leírt
+   módon kapcsold be (`Include` sor + `mod_proxy`, `mod_proxy_http`). Apache újraindítás.
+6. **Node szerver:** `deploy\xampp\start-server.bat` (tartósan futtatáshoz: Feladatütemező „Rendszerindításkor”, vagy NSSM/pm2 szolgáltatásként).
+7. Kipróbálás a gépen: http://localhost/utas/
+
+### Tailscale – HTTPS kell!
+
+A telepíthető PWA, a service worker, a **push értesítések** és a **helymeghatározás** csak HTTPS-en működnek
+(kivéve `localhost`). A sima `http://100.x.y.z/utas/` Tailscale IP-címen ezek **nem** fognak menni. Megoldás:
+
+1. Tailscale admin → **DNS** → MagicDNS és **HTTPS Certificates** bekapcsolása.
+2. A szerver gépen (rendszergazdai parancssor):
+   ```bat
+   tailscale serve --bg 80
+   ```
+3. Az app ezután a tailneten itt érhető el, érvényes tanúsítvánnyal:
+   `https://<gépnév>.<tailnet>.ts.net/utas/`
+
+A push értesítések a böngészőgyártók szerverein (Google/Apple/Mozilla) keresztül érkeznek, ehhez a telefonnak nem kell a tailneten lennie –
+az app megnyitásához és a feliratkozáshoz viszont igen.
+
 ## Felépítés
 
 ```
+deploy/   XAMPP (Apache proxy) konfiguráció, Windows indító scriptek
 server/   Node 22 + Fastify + node:sqlite (TypeScript, tsx)
   src/gtfs/       GTFS import és lekérdezések (menetrend, megállók, shape)
   src/bkk/        BKK Futár API kliens, késés-ok felismerés
