@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T09:43:34.468Z",
+  "generated_at": "2026-10-28T10:07:10.497Z",
   "source": {
     "rea_home": "/home/user/rea-src",
     "rea_cmd": "node /home/user/rea-src/scripts/rea.mjs",
@@ -9,7 +9,7 @@
     "capabilities_error": null,
     "chromium": {
       "path": "/opt/pw-browsers/chromium-1243/chrome-linux64/chrome",
-      "source": "known-path",
+      "source": "config",
       "ready": true
     }
   },
@@ -3197,7 +3197,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3231,7 +3231,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3265,7 +3265,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3299,7 +3299,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3333,7 +3333,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3367,7 +3367,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3401,7 +3401,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3435,7 +3435,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,
@@ -3469,7 +3469,7 @@
       ],
       "availability": {
         "available": true,
-        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "reason": "Chromium elérhető (config: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
         "code": "ready",
         "effects": {
           "launches_process": true,

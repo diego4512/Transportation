@@ -27,9 +27,19 @@ function arg(name, fallback) {
   return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
 }
 
-const REA_HOME = resolve(arg("--rea-home", process.env.REA_HOME || "/home/user/rea-src"));
+// A config.json-ból vesszük az alapértékeket (ha nincs argumentum/env), így a
+// frissítés a telepített gépen egyetlen paranccsal fut: node bin/generate-tool-registry.mjs
+let fileCfg = {};
+try {
+  const cfgPath = join(ROOT, "config", "config.json");
+  if (existsSync(cfgPath)) fileCfg = JSON.parse(readFileSync(cfgPath, "utf8"));
+} catch {
+  /* ignore */
+}
+
+const REA_HOME = resolve(arg("--rea-home", process.env.REA_HOME || fileCfg.rea_home || "."));
 // A rea hívható parancs: vagy globális `rea`, vagy `node <REA_HOME>/scripts/rea.mjs`.
-const REA_CMD = arg("--rea-cmd", process.env.REA_CMD || `node ${join(REA_HOME, "scripts", "rea.mjs")}`);
+const REA_CMD = arg("--rea-cmd", process.env.REA_CMD || fileCfg.rea_cmd || `node ${join(REA_HOME, "scripts", "rea.mjs")}`);
 const OUT = resolve(arg("--out", join(ROOT, "tool-registry.json")));
 
 function fail(msg) {
@@ -37,11 +47,16 @@ function fail(msg) {
   process.exit(1);
 }
 
-// 1) product-catalog.json
-const catalogPath = join(REA_HOME, "docs", "product-catalog.json");
-if (!existsSync(catalogPath)) {
+// 1) product-catalog.json – elsőként a REA-ból, tartalékként a bundle-be csomagolt másolat.
+const catalogCandidates = [
+  arg("--catalog", null),
+  join(REA_HOME, "docs", "product-catalog.json"),
+  join(ROOT, "config", "product-catalog.json"),
+].filter(Boolean);
+const catalogPath = catalogCandidates.find((p) => p && existsSync(p));
+if (!catalogPath) {
   fail(
-    `Nem találom a REA product-catalog.json-t itt: ${catalogPath}. Add meg a --rea-home kapcsolóval a REA gyökerét.`,
+    `Nem találom a product-catalog.json-t. Megadható a --catalog <út> kapcsolóval, vagy tedd a config/ mappába. Próbált helyek:\n  ${catalogCandidates.join("\n  ")}`,
   );
 }
 const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
@@ -70,7 +85,7 @@ for (const c of capabilities) capByOp.set(c.operation, c);
 // Böngésző-készültség valós próbája: a REA build megvan (ezt a capabilities futása
 // implikálja), a web-eszközökhöz Chromium/Chrome kell. Ez a user gépén futva az ő
 // környezetét tükrözi, nem állítunk vakon működést.
-const chrome = resolveChromium(arg("--chrome", process.env.CHROME_PATH || null));
+const chrome = resolveChromium(arg("--chrome", process.env.CHROME_PATH || fileCfg.chrome_path || null));
 const browserReady = Boolean(chrome.path);
 const BROWSER_FAMILY_IDS = new Set(["browser"]);
 
