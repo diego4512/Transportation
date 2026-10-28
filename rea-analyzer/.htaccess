@@ -1,0 +1,31 @@
+# REA Web Analyzer – Apache/XAMPP konfiguráció
+# A projekt a docroot alatt fut, pl. C:\xampp\htdocs\rea-analyzer → http://localhost/rea-analyzer/
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # A rewrite-bázist a telepítés helyéhez igazítja az Apache; alútvonal is működik.
+    RewriteBase /rea-analyzer/
+
+    # API: minden /api/... kérés a front controllerhez, az útvonal a _path paraméterbe
+    RewriteRule ^api/(.*)$ api/index.php?_path=$1 [QSA,L]
+</IfModule>
+
+# Érzékeny könyvtárak/fájlok közvetlen kiszolgálásának tiltása
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(json|log|mjs)$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
+
+# A nem webre szánt könyvtárakat az Apache ne szolgálja ki közvetlenül.
+RedirectMatch 403 ^/rea-analyzer/(storage|config|worker|bin|tests|plugins|rea-src|node_modules)/.*$
+
+# Biztonsági fejlécek
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "no-referrer"
+</IfModule>

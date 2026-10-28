@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>REA Web Analyzer</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%8D%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="assets/css/app.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">🔍</span>
+        <div>
+          <strong>REA Web Analyzer</strong>
+          <small id="brandSub">egykattintásos weboldal-elemző</small>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="#/" data-route="/">Kezdőlap</a>
+        <a href="#/katalogus" data-route="/katalogus">Eszközkatalógus</a>
+        <a href="#/bovitmenyek" data-route="/bovitmenyek">Bővítmények</a>
+        <a href="#/diagnosztika" data-route="/diagnosztika">Diagnosztika</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menü">☰</button>
+    </header>
+
+    <main id="app" class="app"><div class="loading">Betöltés…</div></main>
+
+    <footer class="footer">
+      <span id="footStatus">REA Web Analyzer</span>
+      <span class="sep">·</span>
+      <span>A megfigyelt tényeket, a következtetéseket és az ismeretleneket elkülönítve kezeli.</span>
+    </footer>
+
+    <div id="toast" class="toast" hidden></div>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/views.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "_comment": "REA Web Analyzer konfiguráció. Másold config.json néven, és állítsd be az útvonalakat. A PHP és a Node worker is EZT olvassa.",
+  "base_path": "/rea-analyzer/",
+  "rea_home": "C:/xampp/htdocs/rea-analyzer/rea-src",
+  "rea_cmd": "node C:/xampp/htdocs/rea-analyzer/rea-src/scripts/rea.mjs",
+  "node_bin": "node",
+  "chrome_path": null,
+  "storage_dir": "storage",
+  "max_job_runtime_ms": 180000,
+  "max_tool_runtime_ms": 60000,
+  "max_concurrent_jobs": 1,
+  "allow_loopback_targets": false,
+  "poll_interval_ms": 1000,
+  "active_analysis_enabled": false,
+  "plugins_enabled": true,
+  "_rea_cmd_help": "Ha a REA-t globálisan telepíted (npm i -g rea-agents), akkor rea_cmd lehet egyszerűen 'rea'. Ha a forrásból buildeled, akkor 'node <rea_home>/scripts/rea.mjs'.",
+  "_chrome_path_help": "null esetén automatikus keresés (Chrome/Edge/Chromium). Windows példa: C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "_allow_loopback_help": "true csak akkor, ha szándékosan akarsz 127.0.0.1 helyi tesztoldalt elemezni. Éles használatnál hagyd false-on (SSRF-védelem).",
+  "_active_help": "Az aktív (böngészőt vezérlő, pl. capture-browser-scenario) eszközök csak akkor futnak, ha ez true ÉS a kérés is aktív módot kér."
+}

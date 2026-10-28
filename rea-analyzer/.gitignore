@@ -1,0 +1,16 @@
+# Helyi konfiguráció (gépfüggő útvonalak) – ne kerüljön verziókövetésbe
+config/config.json
+
+# Futásidejű adatok
+storage/jobs/
+storage/plugins/
+storage/plugin-jobs/
+storage/logs/
+storage/worker-heartbeat.json
+
+# Függőségek
+node_modules/
+
+# Rendszerfájlok
+.DS_Store
+Thumbs.db

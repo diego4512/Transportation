@@ -1,0 +1,4415 @@
+{
+  "generated_at": "2026-10-28T09:43:34.468Z",
+  "source": {
+    "rea_home": "/home/user/rea-src",
+    "rea_cmd": "node /home/user/rea-src/scripts/rea.mjs",
+    "rea_version": "4.1.0",
+    "product_catalog_sha_present": true,
+    "capabilities_ok": true,
+    "capabilities_error": null,
+    "chromium": {
+      "path": "/opt/pw-browsers/chromium-1243/chrome-linux64/chrome",
+      "source": "known-path",
+      "ready": true
+    }
+  },
+  "counts": {
+    "mcp_tools_total": 126,
+    "cli_commands": 81,
+    "mcp_prompts": 6,
+    "providers": 19,
+    "url_applicable_tools": 9,
+    "available_now": 16,
+    "unavailable_now": 9,
+    "unknown_now": 101
+  },
+  "families": [
+    {
+      "id": "direct",
+      "surface": "official-proxy",
+      "count": 41,
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "description": "Közvetlen hozzáférés a natív disassembler/decompiler műveletekhez (Ghidra/Hopper/IDA). Bináris célokra való, weboldalra nem.",
+      "targets": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "enhanced",
+      "surface": "enhanced",
+      "count": 14,
+      "category": "Natív kód – kiterjesztett elemzés",
+      "description": "Magasabb szintű natív elemzés: függvény-összegzés, hívási gráf, Obj-C/Swift metaadatok, feature-nyomkövetés.",
+      "targets": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "native",
+      "surface": "native-provider",
+      "count": 7,
+      "category": "Apple/natív provider",
+      "description": "macOS/Apple natív vizsgálat (Mach-O, plist, aláírás, Swift demangling, UI-megfigyelés). macOS gazdagépet igényel.",
+      "targets": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "artifact",
+      "surface": "artifact-provider",
+      "count": 5,
+      "category": "Artifact (biztonságos kigyűjtés)",
+      "description": "App-bundle artifactok biztonságos kigyűjtése és vizsgálata (storyboard/nib, asset katalógus, keyed archive).",
+      "targets": [
+        "App bundle",
+        "Apple artifact"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "managed",
+      "surface": "managed",
+      "count": 7,
+      "category": ".NET / managed kód",
+      "description": "PE/CLI (.NET) statikus vizsgálat: tagok, aláírások, PInvoke-határok, managed app-gráf.",
+      "targets": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "firmware",
+      "surface": "firmware-provider",
+      "count": 2,
+      "category": "Firmware",
+      "description": "Firmware-régiók vizsgálata és kigyűjtése (binwalk/unblob). Firmware fájlt igényel.",
+      "targets": [
+        "Firmware image"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "android",
+      "surface": "android-provider",
+      "count": 5,
+      "category": "Android APK",
+      "description": "APK statikus vizsgálat (JADX): osztályok, metódusok, manifest, referenciák.",
+      "targets": [
+        "Android APK"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "browser",
+      "surface": "browser-provider",
+      "count": 9,
+      "category": "Böngésző / weboldal",
+      "description": "Passzív weboldal-megfigyelés Chrome DevTools Protokollon át: DOM, scriptek, erőforrások, hálózat, bundle-elemzés, képernyőkép, WebMCP felderítés, összehasonlítás.",
+      "targets": [
+        "Weboldal (http/https)"
+      ],
+      "url": "yes"
+    },
+    {
+      "id": "electron",
+      "surface": "electron-provider",
+      "count": 5,
+      "category": "Electron / helyi JS-alkalmazás",
+      "description": "Electron és helyi JavaScript-alkalmazások vizsgálata (file:// oldalak, statikus rekonstrukció, futásidő-egyeztetés).",
+      "targets": [
+        "Electron app",
+        "Helyi JS alkalmazás"
+      ],
+      "url": "conditional"
+    },
+    {
+      "id": "javascript-runtime",
+      "surface": "runtime-provider",
+      "count": 2,
+      "category": "JavaScript futásidő (V8 Inspector)",
+      "description": "Node/Electron V8 Inspector célpontok passzív megfigyelése. Futó Node/Electron inspector-végpontot igényel, nem sima weboldalt.",
+      "targets": [
+        "Node/Electron V8 Inspector"
+      ],
+      "url": "no"
+    },
+    {
+      "id": "application",
+      "surface": "application-workflow",
+      "count": 8,
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "description": "JavaScript-alkalmazás magasabb szintű munkafolyamatai: exportált scriptek statikus rekonstrukciója, verzió/bundle összehasonlítás, feature- és szemantika-nyomkövetés, rekonstrukciós fedettség.",
+      "targets": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url": "conditional"
+    },
+    {
+      "id": "session",
+      "surface": "session",
+      "count": 21,
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "description": "Elemzési munkamenet, bizonyíték-csomagok (evidence) kezelése, ismeretlenek (unknowns) rögzítése, rekonstrukció-ellenőrzés, összehasonlítások, folyamat-pillanatképek.",
+      "targets": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url": "conditional"
+    }
+  ],
+  "providers": [
+    {
+      "id": "binwalk",
+      "name": "Binwalk",
+      "version": "3.1.0",
+      "capabilities": [
+        "inspect_firmware_regions"
+      ],
+      "note": "Külső eszköz (telepítendő): binwalk.",
+      "license": "nyílt forrás"
+    },
+    {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": null,
+      "capabilities": [
+        "address_name",
+        "address_to_file_offset",
+        "analyze_function",
+        "annotate_native_function",
+        "inspect_native_data_type",
+        "inspect_native_instruction",
+        "inspect_native_load_image",
+        "list_documents",
+        "list_names",
+        "list_procedures",
+        "list_segments",
+        "list_strings",
+        "procedure_address",
+        "procedure_assembly",
+        "procedure_callees",
+        "procedure_callers",
+        "procedure_info",
+        "procedure_pseudo_code",
+        "procedure_references",
+        "read_bytes",
+        "read_function_instructions",
+        "resolve_containing_procedure",
+        "resolve_native_call_targets",
+        "search_procedures",
+        "search_strings",
+        "xrefs"
+      ],
+      "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+      "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+    },
+    {
+      "id": "hopper",
+      "name": "Hopper Disassembler",
+      "version": null,
+      "capabilities": [
+        "address_name",
+        "address_to_file_offset",
+        "analyze_function",
+        "comment",
+        "current_address",
+        "current_document",
+        "current_procedure",
+        "goto_address",
+        "inline_comment",
+        "list_bookmarks",
+        "list_documents",
+        "list_names",
+        "list_procedures",
+        "list_segments",
+        "list_strings",
+        "next_address",
+        "prev_address",
+        "procedure_address",
+        "procedure_assembly",
+        "procedure_callees",
+        "procedure_callers",
+        "procedure_info",
+        "procedure_pseudo_code",
+        "procedure_references",
+        "read_bytes",
+        "read_function_instructions",
+        "resolve_containing_procedure",
+        "search_procedures",
+        "search_strings",
+        "set_address_name",
+        "set_addresses_names",
+        "set_bookmark",
+        "set_comment",
+        "set_current_document",
+        "set_inline_comment",
+        "unset_bookmark",
+        "xrefs"
+      ],
+      "note": "Külső motor, külön telepítés + licenc szükséges.",
+      "license": "kereskedelmi (Hopper)"
+    },
+    {
+      "id": "ida",
+      "name": "IDA Pro MCP adapter",
+      "version": "1",
+      "capabilities": [
+        "analyze_function",
+        "list_procedures",
+        "list_strings",
+        "procedure_address",
+        "procedure_assembly",
+        "procedure_callees",
+        "procedure_callers",
+        "procedure_pseudo_code",
+        "read_function_instructions",
+        "search_procedures",
+        "search_strings",
+        "xrefs"
+      ],
+      "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+      "license": "kereskedelmi (IDA Pro)"
+    },
+    {
+      "id": "jadx",
+      "name": "JADX headless",
+      "version": "0.7.1",
+      "capabilities": [
+        "inspect_android_class",
+        "inspect_android_method",
+        "inspect_android_package",
+        "search_android_classes",
+        "trace_android_references"
+      ],
+      "note": "Külső eszköz (telepítendő): JADX headless.",
+      "license": "nyílt forrás"
+    },
+    {
+      "id": "native-macos",
+      "name": "macOS native inspection utilities",
+      "version": null,
+      "capabilities": [
+        "capture_native_ui_scenario",
+        "demangle_swift",
+        "inspect_macho",
+        "inspect_plist",
+        "inspect_signature",
+        "list_architectures",
+        "observe_native_ui"
+      ],
+      "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+      "license": "platformfüggő (macOS)"
+    },
+    {
+      "id": "rea-artifact-graph",
+      "name": "REA safe artifact graph provider",
+      "version": "1",
+      "capabilities": [
+        "decode_interface_builder",
+        "extract_artifact",
+        "inspect_artifact",
+        "inspect_asset_catalog",
+        "inspect_keyed_archive"
+      ],
+      "note": "Beépített REA provider.",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-cdp-browser",
+      "name": "REA Chrome DevTools Protocol observation provider",
+      "version": "2",
+      "capabilities": [
+        "analyze_web_bundle",
+        "capture_web_screenshot",
+        "compare_web_captures",
+        "compare_web_screenshots",
+        "discover_webmcp_tools",
+        "inspect_web_page",
+        "list_browser_targets",
+        "observe_web_session"
+      ],
+      "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+      "license": "MIT (REA) + Chromium"
+    },
+    {
+      "id": "rea-cdp-electron",
+      "name": "REA Electron file-page CDP observation provider",
+      "version": "1",
+      "capabilities": [
+        "inspect_electron_page",
+        "list_electron_targets"
+      ],
+      "note": "Beépített REA provider + Electron alkalmazás.",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-dotnet-static",
+      "name": "REA managed static analysis provider",
+      "version": "1",
+      "capabilities": [
+        "inspect_managed_artifact",
+        "inspect_managed_members",
+        "inspect_managed_native_boundaries"
+      ],
+      "note": "Beépített REA provider (.NET statikus).",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-dotnet-workflows",
+      "name": "REA managed-code workflows",
+      "version": "1",
+      "capabilities": [
+        "compare_managed_members",
+        "import_managed_reconstruction",
+        "project_managed_application_graph",
+        "verify_managed_native_boundaries"
+      ],
+      "note": "Beépített REA provider (.NET workflow).",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-javascript-application",
+      "name": "REA JavaScript application analyzer",
+      "version": "1",
+      "capabilities": [
+        "analyze_javascript_application"
+      ],
+      "note": "Beépített REA provider (JS app).",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-javascript-application-workflows",
+      "name": "REA JavaScript application workflows",
+      "version": "1",
+      "capabilities": [
+        "build_reconstruction_obligation_ledger",
+        "compare_application_versions",
+        "compare_javascript_export_shapes",
+        "compare_source_to_bundle",
+        "evaluate_reconstruction_coverage",
+        "trace_application_feature",
+        "trace_javascript_semantics"
+      ],
+      "note": "Beépített REA provider (JS workflow).",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-javascript-runtime-reconciliation",
+      "name": "REA JavaScript runtime reconciliation",
+      "version": "1",
+      "capabilities": [
+        "reconcile_javascript_runtime"
+      ],
+      "note": "Beépített REA provider (JS futásidő-egyeztetés).",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-playwright-browser-scenario",
+      "name": "REA Playwright browser scenario capture provider",
+      "version": "1",
+      "capabilities": [
+        "capture_browser_scenario"
+      ],
+      "note": "Beépített REA provider + Playwright/Chromium.",
+      "license": "MIT (REA) + Chromium"
+    },
+    {
+      "id": "rea-playwright-electron-active",
+      "name": "REA Playwright active Electron observation provider",
+      "version": "1",
+      "capabilities": [
+        "capture_electron_scenario"
+      ],
+      "note": "Beépített REA provider + Playwright + Electron.",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-v8-inspector",
+      "name": "REA passive Node/Electron V8 Inspector provider",
+      "version": "1",
+      "capabilities": [
+        "list_javascript_runtime_targets",
+        "observe_javascript_runtime"
+      ],
+      "note": "Beépített REA provider + futó Node/Electron inspector.",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "rea-web-script-export",
+      "name": "REA captured script export",
+      "version": "1",
+      "capabilities": [
+        "export_web_scripts"
+      ],
+      "note": "Beépített REA provider (script-export).",
+      "license": "MIT (REA)"
+    },
+    {
+      "id": "unblob",
+      "name": "Unblob",
+      "version": "26.6.4",
+      "capabilities": [
+        "extract_firmware"
+      ],
+      "note": "Külső eszköz (telepítendő): unblob.",
+      "license": "nyílt forrás"
+    }
+  ],
+  "web_profiles": {
+    "gyors-web": {
+      "label": "Gyors weboldal-felderítés",
+      "description": "Alap célpont-felderítés, oldalvizsgálat és képernyőkép.",
+      "tools": [
+        "list_browser_targets",
+        "inspect_web_page",
+        "capture_web_screenshot"
+      ]
+    },
+    "reszletes-web": {
+      "label": "Részletes webes elemzés",
+      "description": "Teljes passzív vizsgálat + bundle-elemzés + script-export + WebMCP + munkamenet-megfigyelés.",
+      "tools": [
+        "list_browser_targets",
+        "inspect_web_page",
+        "analyze_web_bundle",
+        "export_web_scripts",
+        "discover_webmcp_tools",
+        "capture_web_screenshot"
+      ]
+    },
+    "javascript": {
+      "label": "JavaScript-források és modulok",
+      "description": "Script-források, bundle + source-map, exportált scriptek statikus elemzése.",
+      "tools": [
+        "list_browser_targets",
+        "inspect_web_page",
+        "analyze_web_bundle",
+        "export_web_scripts"
+      ]
+    },
+    "frontend-arch": {
+      "label": "Frontend-architektúra és útvonalak",
+      "description": "Route-/endpoint-jelöltek, vendor-ujjlenyomatok a bundle statikus elemzéséből.",
+      "tools": [
+        "list_browser_targets",
+        "analyze_web_bundle",
+        "inspect_web_page"
+      ]
+    },
+    "bongeszo-megfigyeles": {
+      "label": "Böngészőben megfigyelt működés",
+      "description": "Felhasználó-vezérelt navigáció és böngésző-forgatókönyv megfigyelése.",
+      "tools": [
+        "list_browser_targets",
+        "observe_web_session",
+        "inspect_web_page"
+      ]
+    },
+    "halozat-eroforras": {
+      "label": "Hálózati és erőforrás-megfigyelés",
+      "description": "Hálózati események, JSON-/WebSocket-alakok, erőforrások a passzív vizsgálatból.",
+      "tools": [
+        "list_browser_targets",
+        "inspect_web_page"
+      ]
+    },
+    "teljes": {
+      "label": "Teljes elemzés (minden releváns web-eszköz)",
+      "description": "Az összes weboldalra ténylegesen alkalmazható és elérhető eszköz lefuttatása.",
+      "tools": [
+        "list_browser_targets",
+        "inspect_web_page",
+        "analyze_web_bundle",
+        "export_web_scripts",
+        "discover_webmcp_tools",
+        "observe_web_session",
+        "capture_web_screenshot"
+      ]
+    },
+    "egyeni": {
+      "label": "Egyéni elemzés",
+      "description": "Szabadon kiválasztott, weboldalra alkalmazható eszközök.",
+      "tools": []
+    }
+  },
+  "tools": [
+    {
+      "id": "address_name",
+      "name_en": "address_name",
+      "name_hu": "Cím neve",
+      "description_hu": "Egy elemzési címhez tartozó név lekérése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "address_to_file_offset",
+      "name_en": "address_to_file_offset",
+      "name_hu": "Cím → fájl-offszet",
+      "description_hu": "Elemzési cím feloldása az eredeti fájl bájt-offszetjére.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "address-to-file-offset",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "annotate_native_function",
+      "name_en": "annotate_native_function",
+      "name_hu": "Natív függvény annotálása",
+      "description_hu": "Függvény-annotációk szerkesztése és frissített elemzés visszaadása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "annotate-native-function",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "comment",
+      "name_en": "comment",
+      "name_hu": "Megjegyzés",
+      "description_hu": "Megjegyzés lekérése/kezelése egy címen.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "current_address",
+      "name_en": "current_address",
+      "name_hu": "Aktuális cím",
+      "description_hu": "A disassembler aktuális címének lekérése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "current_document",
+      "name_en": "current_document",
+      "name_hu": "Aktuális dokumentum",
+      "description_hu": "A disassembler aktuális dokumentumának lekérése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "current_procedure",
+      "name_en": "current_procedure",
+      "name_hu": "Aktuális eljárás",
+      "description_hu": "Az aktuális eljárás (függvény) lekérése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "goto_address",
+      "name_en": "goto_address",
+      "name_hu": "Ugrás címre",
+      "description_hu": "A disassembler kurzorának adott címre állítása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inline_comment",
+      "name_en": "inline_comment",
+      "name_hu": "Soron belüli megjegyzés",
+      "description_hu": "Soron belüli (inline) megjegyzés lekérése/kezelése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_native_data_type",
+      "name_en": "inspect_native_data_type",
+      "name_hu": "Natív adattípus vizsgálata",
+      "description_hu": "Egy helyreállított adatbázis-típus vagy típusos adatobjektum vizsgálata.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-native-data-type",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_native_instruction",
+      "name_en": "inspect_native_instruction",
+      "name_hu": "Natív utasítás vizsgálata",
+      "description_hu": "Egy natív utasítás vizsgálata dekódolt operandus-tényekkel.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-native-instruction",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_native_load_image",
+      "name_en": "inspect_native_load_image",
+      "name_hu": "Betöltött kép vizsgálata",
+      "description_hu": "Betöltött natív bájtok, forrás-leképezések, relokációk és belépési pont ellenőrzése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-native-load-image",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_bookmarks",
+      "name_en": "list_bookmarks",
+      "name_hu": "Könyvjelzők listája",
+      "description_hu": "A dokumentum könyvjelzőinek listázása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_documents",
+      "name_en": "list_documents",
+      "name_hu": "Dokumentumok listája",
+      "description_hu": "A betöltött dokumentumok listázása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_names",
+      "name_en": "list_names",
+      "name_hu": "Nevek listája",
+      "description_hu": "Az elemzett nevek (szimbólumok) listázása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_procedures",
+      "name_en": "list_procedures",
+      "name_hu": "Eljárások listája",
+      "description_hu": "Az elemzett eljárások (függvények) listázása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_segments",
+      "name_en": "list_segments",
+      "name_hu": "Szegmensek listája",
+      "description_hu": "A bináris szegmenseinek listázása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_strings",
+      "name_en": "list_strings",
+      "name_hu": "Sztringek listája",
+      "description_hu": "Az elemzett sztringek listázása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "next_address",
+      "name_en": "next_address",
+      "name_hu": "Következő cím",
+      "description_hu": "Navigáció a következő címre.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "prev_address",
+      "name_en": "prev_address",
+      "name_hu": "Előző cím",
+      "description_hu": "Navigáció az előző címre.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "procedure_address",
+      "name_en": "procedure_address",
+      "name_hu": "Eljárás címe",
+      "description_hu": "Egy eljárás (függvény) címének lekérése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "procedure_assembly",
+      "name_en": "procedure_assembly",
+      "name_hu": "Eljárás assembly",
+      "description_hu": "Egy eljárás assembly-kódjának lekérése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "procedure_callees",
+      "name_en": "procedure_callees",
+      "name_hu": "Eljárás hívottjai",
+      "description_hu": "Az eljárás által hívott függvények (callees) listája.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "procedure_callers",
+      "name_en": "procedure_callers",
+      "name_hu": "Eljárás hívói",
+      "description_hu": "Az eljárást hívó függvények (callers) listája.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "procedure_info",
+      "name_en": "procedure_info",
+      "name_hu": "Eljárás-infó",
+      "description_hu": "Egy eljárás metaadatainak lekérése.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "procedure_pseudo_code",
+      "name_en": "procedure_pseudo_code",
+      "name_hu": "Eljárás pszeudokód",
+      "description_hu": "Egy eljárás decompile-olt pszeudokódja.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "procedure_references",
+      "name_en": "procedure_references",
+      "name_hu": "Eljárás-referenciák",
+      "description_hu": "Egy eljárásra mutató referenciák listája.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "read_bytes",
+      "name_en": "read_bytes",
+      "name_hu": "Bájtok olvasása",
+      "description_hu": "Pontos provider-memóriabájtok olvasása egy elemzési címen.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "read-bytes",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "read_function_instructions",
+      "name_en": "read_function_instructions",
+      "name_hu": "Függvény utasításai",
+      "description_hu": "Egy függvény összes utasításának olvasása decompile nélkül.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "resolve_containing_procedure",
+      "name_en": "resolve_containing_procedure",
+      "name_hu": "Tartalmazó eljárás feloldása",
+      "description_hu": "Egy címet tartalmazó eljárás feloldása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "resolve_native_call_targets",
+      "name_en": "resolve_native_call_targets",
+      "name_hu": "Natív hívási célok feloldása",
+      "description_hu": "Egy statikus natív hívási hely céljainak feloldása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "resolve-native-call-targets",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "search_procedures",
+      "name_en": "search_procedures",
+      "name_hu": "Eljárás-keresés",
+      "description_hu": "Keresés az elemzett eljárásnevek között.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "search_strings",
+      "name_en": "search_strings",
+      "name_hu": "Sztring-keresés",
+      "description_hu": "Keresés az elemzett sztringek között.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "set_address_name",
+      "name_en": "set_address_name",
+      "name_hu": "Cím nevének beállítása",
+      "description_hu": "Egy elemzési cím nevének beállítása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "set_addresses_names",
+      "name_en": "set_addresses_names",
+      "name_hu": "Címnevek beállítása (köteg)",
+      "description_hu": "Több cím nevének beállítása egyszerre.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "set_bookmark",
+      "name_en": "set_bookmark",
+      "name_hu": "Könyvjelző beállítása",
+      "description_hu": "Könyvjelző elhelyezése egy címen.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "set_comment",
+      "name_en": "set_comment",
+      "name_hu": "Megjegyzés beállítása",
+      "description_hu": "Megjegyzés beállítása egy címen.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "set_current_document",
+      "name_en": "set_current_document",
+      "name_hu": "Aktuális dokumentum beállítása",
+      "description_hu": "A disassembler aktuális dokumentumának beállítása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "set_inline_comment",
+      "name_en": "set_inline_comment",
+      "name_hu": "Inline megjegyzés beállítása",
+      "description_hu": "Soron belüli megjegyzés beállítása.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "unset_bookmark",
+      "name_en": "unset_bookmark",
+      "name_hu": "Könyvjelző törlése",
+      "description_hu": "Könyvjelző eltávolítása egy címről.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "xrefs",
+      "name_en": "xrefs",
+      "name_hu": "Kereszthivatkozások",
+      "description_hu": "Korlátozott referenciák (xrefs) listázása egy elemzett címre.",
+      "family": "direct",
+      "surface": "official-proxy",
+      "category": "Natív kód – közvetlen (disassembler proxy)",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "xrefs",
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "analyze_function",
+      "name_en": "analyze_function",
+      "name_hu": "Függvény elemzése",
+      "description_hu": "Egy teljes függvény elemzése bizonyítékkal.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [
+        {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "note": "Külső motor, külön telepítés szükséges (REA Ghidra bridge).",
+          "license": "ingyenes, nyílt forrás (NSA Ghidra)"
+        },
+        {
+          "id": "hopper",
+          "name": "Hopper Disassembler",
+          "note": "Külső motor, külön telepítés + licenc szükséges.",
+          "license": "kereskedelmi (Hopper)"
+        },
+        {
+          "id": "ida",
+          "name": "IDA Pro MCP adapter",
+          "note": "Külső motor, külön telepítés + licenc szükséges (IDA Pro MCP adapter).",
+          "license": "kereskedelmi (IDA Pro)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "analyze_swift_types",
+      "name_en": "analyze_swift_types",
+      "name_hu": "Swift típusok elemzése",
+      "description_hu": "Swift típusmetaadatok elemzése.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "batch_decompile",
+      "name_en": "batch_decompile",
+      "name_hu": "Kötegelt decompile",
+      "description_hu": "Több függvény egyidejű decompile-ja.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "binary_overview",
+      "name_en": "binary_overview",
+      "name_hu": "Bináris áttekintés",
+      "description_hu": "A bináris magas szintű áttekintése.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "find_xrefs_to_name",
+      "name_en": "find_xrefs_to_name",
+      "name_hu": "Xref névre",
+      "description_hu": "Egy névre mutató kereszthivatkozások keresése.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "get_call_graph",
+      "name_en": "get_call_graph",
+      "name_hu": "Hívási gráf",
+      "description_hu": "A hívási gráf előállítása.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "get_objc_classes",
+      "name_en": "get_objc_classes",
+      "name_hu": "Obj-C osztályok",
+      "description_hu": "Objective-C osztályok kinyerése.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "get_objc_protocols",
+      "name_en": "get_objc_protocols",
+      "name_hu": "Obj-C protokollok",
+      "description_hu": "Objective-C protokollok kinyerése.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_native_api",
+      "name_en": "inspect_native_api",
+      "name_hu": "Natív API-határ vizsgálata",
+      "description_hu": "Egy natív függvény API-határának rekonstrukciója bizonyítékkal.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-native-api",
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_native_dispatch_metadata",
+      "name_en": "inspect_native_dispatch_metadata",
+      "name_hu": "Dispatch-metaadat vizsgálata",
+      "description_hu": "Típusos Objective-C és Swift dispatch-metaadatok vizsgálata.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-native-dispatch-metadata",
+      "providers": [],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": false,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "trace_call_path",
+      "name_en": "trace_call_path",
+      "name_hu": "Hívási út nyomkövetése",
+      "description_hu": "Hívási út nyomon követése a kódban.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "trace_feature",
+      "name_en": "trace_feature",
+      "name_hu": "Feature nyomkövetése",
+      "description_hu": "Egy literál feature nyomon követése az elemzett referenciákon át.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "trace_native_ui_action",
+      "name_en": "trace_native_ui_action",
+      "name_hu": "Natív UI-akció nyomkövetése",
+      "description_hu": "Lefordított UI-akció-szelektor nyomon követése a natív kezelőig és közvetlen hívottjaiig.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "trace-native-ui-action",
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "trace_native_values",
+      "name_en": "trace_native_values",
+      "name_hu": "Natív értékek nyomkövetése",
+      "description_hu": "Korlátozott natív def-use és hívási függőségek nyomon követése.",
+      "family": "enhanced",
+      "surface": "enhanced",
+      "category": "Natív kód – kiterjesztett elemzés",
+      "target_formats": [
+        "Natív bináris (PE/ELF/Mach-O)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "trace-native-values",
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "capture_native_ui_scenario",
+      "name_en": "capture_native_ui_scenario",
+      "name_hu": "Natív UI-forgatókönyv rögzítése",
+      "description_hu": "Forgatókönyv megfigyelése/futtatása egy pontos natív alkalmazásablakban (macOS).",
+      "family": "native",
+      "surface": "native-provider",
+      "category": "Apple/natív provider",
+      "target_formats": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url_applicable": "no",
+      "cli_command": "capture-native-ui-scenario",
+      "providers": [
+        {
+          "id": "native-macos",
+          "name": "macOS native inspection utilities",
+          "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+          "license": "platformfüggő (macOS)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": true,
+          "may_access_network": true,
+          "may_write_filesystem": true,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "demangle_swift",
+      "name_en": "demangle_swift",
+      "name_hu": "Swift demangling",
+      "description_hu": "Swift szimbólumok demangling-je Hopper nélkül.",
+      "family": "native",
+      "surface": "native-provider",
+      "category": "Apple/natív provider",
+      "target_formats": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url_applicable": "no",
+      "cli_command": "demangle-swift",
+      "providers": [
+        {
+          "id": "native-macos",
+          "name": "macOS native inspection utilities",
+          "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+          "license": "platformfüggő (macOS)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "inspect_macho",
+      "name_en": "inspect_macho",
+      "name_hu": "Mach-O vizsgálata",
+      "description_hu": "Mach-O bináris vizsgálata Hopper indítása nélkül.",
+      "family": "native",
+      "surface": "native-provider",
+      "category": "Apple/natív provider",
+      "target_formats": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-macho",
+      "providers": [
+        {
+          "id": "native-macos",
+          "name": "macOS native inspection utilities",
+          "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+          "license": "platformfüggő (macOS)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "inspect_plist",
+      "name_en": "inspect_plist",
+      "name_hu": "plist vizsgálata",
+      "description_hu": "App plist-metaadatok elemzése Hopper nélkül.",
+      "family": "native",
+      "surface": "native-provider",
+      "category": "Apple/natív provider",
+      "target_formats": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-plist",
+      "providers": [
+        {
+          "id": "native-macos",
+          "name": "macOS native inspection utilities",
+          "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+          "license": "platformfüggő (macOS)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "inspect_signature",
+      "name_en": "inspect_signature",
+      "name_hu": "Aláírás vizsgálata",
+      "description_hu": "Kódaláírás vizsgálata Hopper nélkül.",
+      "family": "native",
+      "surface": "native-provider",
+      "category": "Apple/natív provider",
+      "target_formats": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-signature",
+      "providers": [
+        {
+          "id": "native-macos",
+          "name": "macOS native inspection utilities",
+          "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+          "license": "platformfüggő (macOS)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "list_architectures",
+      "name_en": "list_architectures",
+      "name_hu": "Architektúrák listája",
+      "description_hu": "Egy bináris architektúráinak listázása Hopper nélkül.",
+      "family": "native",
+      "surface": "native-provider",
+      "category": "Apple/natív provider",
+      "target_formats": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url_applicable": "no",
+      "cli_command": "list-architectures",
+      "providers": [
+        {
+          "id": "native-macos",
+          "name": "macOS native inspection utilities",
+          "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+          "license": "platformfüggő (macOS)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "observe_native_ui",
+      "name_en": "observe_native_ui",
+      "name_hu": "Natív UI megfigyelése",
+      "description_hu": "Forgatókönyv megfigyelése/futtatása egy pontos natív alkalmazásablakban (macOS).",
+      "family": "native",
+      "surface": "native-provider",
+      "category": "Apple/natív provider",
+      "target_formats": [
+        "Mach-O",
+        "Apple app bundle"
+      ],
+      "url_applicable": "no",
+      "cli_command": "observe-native-ui",
+      "providers": [
+        {
+          "id": "native-macos",
+          "name": "macOS native inspection utilities",
+          "note": "macOS gazdagépet és Xcode toolchaint igényel.",
+          "license": "platformfüggő (macOS)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Native macOS utilities require macOS.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": true,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "Availability and textual formats depend on the installed macOS/Xcode toolchain."
+        ]
+      }
+    },
+    {
+      "id": "decode_interface_builder",
+      "name_en": "decode_interface_builder",
+      "name_hu": "Interface Builder dekódolása",
+      "description_hu": "Lefordított storyboard/nib archívumok dekódolása app-bundle-ből.",
+      "family": "artifact",
+      "surface": "artifact-provider",
+      "category": "Artifact (biztonságos kigyűjtés)",
+      "target_formats": [
+        "App bundle",
+        "Apple artifact"
+      ],
+      "url_applicable": "no",
+      "cli_command": "decode-interface-builder",
+      "providers": [
+        {
+          "id": "rea-artifact-graph",
+          "name": "REA safe artifact graph provider",
+          "note": "Beépített REA provider.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": null,
+        "code": null,
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": false,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "DMG child inventory automatically uses a read-only native macOS mount; PKG remains root-hash-only.",
+          "ASAR files discovered in filesystem-backed inventories are expanded without bulk extraction; other nested containers remain recorded only."
+        ]
+      }
+    },
+    {
+      "id": "extract_artifact",
+      "name_en": "extract_artifact",
+      "name_hu": "Artifact kigyűjtése",
+      "description_hu": "Egy artifact összes szabályos tartalmának biztonságos kigyűjtése.",
+      "family": "artifact",
+      "surface": "artifact-provider",
+      "category": "Artifact (biztonságos kigyűjtés)",
+      "target_formats": [
+        "App bundle",
+        "Apple artifact"
+      ],
+      "url_applicable": "no",
+      "cli_command": "extract-artifact",
+      "providers": [
+        {
+          "id": "rea-artifact-graph",
+          "name": "REA safe artifact graph provider",
+          "note": "Beépített REA provider.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": null,
+        "code": null,
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": true,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "DMG child inventory automatically uses a read-only native macOS mount; PKG remains root-hash-only.",
+          "ASAR files discovered in filesystem-backed inventories are expanded without bulk extraction; other nested containers remain recorded only."
+        ]
+      }
+    },
+    {
+      "id": "inspect_artifact",
+      "name_en": "inspect_artifact",
+      "name_hu": "Artifact vizsgálata",
+      "description_hu": "Egy artifact vizsgálata és az elérhető megfigyelések + következő lépések visszaadása.",
+      "family": "artifact",
+      "surface": "artifact-provider",
+      "category": "Artifact (biztonságos kigyűjtés)",
+      "target_formats": [
+        "App bundle",
+        "Apple artifact"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-artifact",
+      "providers": [
+        {
+          "id": "rea-artifact-graph",
+          "name": "REA safe artifact graph provider",
+          "note": "Beépített REA provider.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": null,
+        "code": null,
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": true,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "DMG child inventory automatically uses a read-only native macOS mount; PKG remains root-hash-only.",
+          "ASAR files discovered in filesystem-backed inventories are expanded without bulk extraction; other nested containers remain recorded only."
+        ]
+      }
+    },
+    {
+      "id": "inspect_asset_catalog",
+      "name_en": "inspect_asset_catalog",
+      "name_hu": "Asset katalógus vizsgálata",
+      "description_hu": "Lefordított Apple asset-katalógus metaadatainak vizsgálata.",
+      "family": "artifact",
+      "surface": "artifact-provider",
+      "category": "Artifact (biztonságos kigyűjtés)",
+      "target_formats": [
+        "App bundle",
+        "Apple artifact"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-asset-catalog",
+      "providers": [
+        {
+          "id": "rea-artifact-graph",
+          "name": "REA safe artifact graph provider",
+          "note": "Beépített REA provider.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": false,
+        "reason": "Apple asset catalogs require macOS assetutil.",
+        "code": "unsupported_host",
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": true,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "DMG child inventory automatically uses a read-only native macOS mount; PKG remains root-hash-only.",
+          "ASAR files discovered in filesystem-backed inventories are expanded without bulk extraction; other nested containers remain recorded only."
+        ]
+      }
+    },
+    {
+      "id": "inspect_keyed_archive",
+      "name_en": "inspect_keyed_archive",
+      "name_hu": "Keyed archive vizsgálata",
+      "description_hu": "Foundation keyed archive vizsgálata objektum-referencia gráfként.",
+      "family": "artifact",
+      "surface": "artifact-provider",
+      "category": "Artifact (biztonságos kigyűjtés)",
+      "target_formats": [
+        "App bundle",
+        "Apple artifact"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-keyed-archive",
+      "providers": [
+        {
+          "id": "rea-artifact-graph",
+          "name": "REA safe artifact graph provider",
+          "note": "Beépített REA provider.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": null,
+        "code": null,
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": false,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "DMG child inventory automatically uses a read-only native macOS mount; PKG remains root-hash-only.",
+          "ASAR files discovered in filesystem-backed inventories are expanded without bulk extraction; other nested containers remain recorded only."
+        ]
+      }
+    },
+    {
+      "id": "compare_managed_members",
+      "name_en": "compare_managed_members",
+      "name_hu": ".NET tagok összehasonlítása",
+      "description_hu": "Managed PE/CLI tag-leltárak összehasonlítása pontos típus/név/aláírás szerint.",
+      "family": "managed",
+      "surface": "managed",
+      "category": ".NET / managed kód",
+      "target_formats": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "compare-managed-members",
+      "providers": [
+        {
+          "id": "rea-dotnet-workflows",
+          "name": "REA managed-code workflows",
+          "note": "Beépített REA provider (.NET workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "import_managed_reconstruction",
+      "name_en": "import_managed_reconstruction",
+      "name_hu": "Managed rekonstrukció importálása",
+      "description_hu": "Decompiler által előállított managed rekonstrukció importja a statikus tag-bizonyíték ellen.",
+      "family": "managed",
+      "surface": "managed",
+      "category": ".NET / managed kód",
+      "target_formats": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "import-managed-reconstruction",
+      "providers": [
+        {
+          "id": "rea-dotnet-workflows",
+          "name": "REA managed-code workflows",
+          "note": "Beépített REA provider (.NET workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_managed_artifact",
+      "name_en": "inspect_managed_artifact",
+      "name_hu": "Managed artifact vizsgálata",
+      "description_hu": "PE/CLI identitás vizsgálata a célkód betöltése nélkül.",
+      "family": "managed",
+      "surface": "managed",
+      "category": ".NET / managed kód",
+      "target_formats": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-managed-artifact",
+      "providers": [
+        {
+          "id": "rea-dotnet-static",
+          "name": "REA managed static analysis provider",
+          "note": "Beépített REA provider (.NET statikus).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": null,
+        "code": null,
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": false,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "This capability inventories PE/CLI identity only; inspect_managed_members admits metadata members, signatures, and CIL anchors.",
+          "It never loads the target assembly, resolves dependencies through a CLR, decompiles C#, or executes target code."
+        ]
+      }
+    },
+    {
+      "id": "inspect_managed_members",
+      "name_en": "inspect_managed_members",
+      "name_hu": "Managed tagok vizsgálata",
+      "description_hu": "PE/CLI metaadat-tagok, aláírások és CIL-horgonyok vizsgálata betöltés nélkül.",
+      "family": "managed",
+      "surface": "managed",
+      "category": ".NET / managed kód",
+      "target_formats": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-managed-members",
+      "providers": [
+        {
+          "id": "rea-dotnet-static",
+          "name": "REA managed static analysis provider",
+          "note": "Beépített REA provider (.NET statikus).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": null,
+        "code": null,
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": false,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "This capability decodes PE/CLI metadata members, signatures, and file-backed method bodies; decompiled C# reconstruction and cross-build member comparison are separate operations.",
+          "It never loads the target assembly, resolves dependencies through a CLR, decompiles C#, or executes target code."
+        ]
+      }
+    },
+    {
+      "id": "inspect_managed_native_boundaries",
+      "name_en": "inspect_managed_native_boundaries",
+      "name_hu": "Managed natív határok vizsgálata",
+      "description_hu": "PE/CLI PInvoke és natív implementációs határok vizsgálata.",
+      "family": "managed",
+      "surface": "managed",
+      "category": ".NET / managed kód",
+      "target_formats": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-managed-native-boundaries",
+      "providers": [
+        {
+          "id": "rea-dotnet-static",
+          "name": "REA managed static analysis provider",
+          "note": "Beépített REA provider (.NET statikus).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": null,
+        "code": null,
+        "effects": {
+          "mutates_artifact": false,
+          "launches_process": false,
+          "may_show_ui": false,
+          "may_access_network": false,
+          "may_write_filesystem": false,
+          "changes_permissions": false,
+          "requires_root": false
+        },
+        "limitations": [
+          "This capability inventories managed declarations for native boundaries only; native exports, thunks, and addresses require separate native-provider evidence.",
+          "It never loads the target assembly, resolves dependencies through a CLR, decompiles C#, or executes target code."
+        ]
+      }
+    },
+    {
+      "id": "project_managed_application_graph",
+      "name_en": "project_managed_application_graph",
+      "name_hu": "Managed app-gráf vetítése",
+      "description_hu": "Hitelesített managed statikus bizonyíték vetítése alkalmazás-gráffá.",
+      "family": "managed",
+      "surface": "managed",
+      "category": ".NET / managed kód",
+      "target_formats": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "project-managed-application-graph",
+      "providers": [
+        {
+          "id": "rea-dotnet-workflows",
+          "name": "REA managed-code workflows",
+          "note": "Beépített REA provider (.NET workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "verify_managed_native_boundaries",
+      "name_en": "verify_managed_native_boundaries",
+      "name_hu": "Managed natív határok ellenőrzése",
+      "description_hu": "Managed P/Invoke deklarációk ellenőrzése hitelesített natív bizonyíték ellen.",
+      "family": "managed",
+      "surface": "managed",
+      "category": ".NET / managed kód",
+      "target_formats": [
+        ".NET PE/CLI (.dll/.exe)"
+      ],
+      "url_applicable": "no",
+      "cli_command": "verify-managed-native-boundaries",
+      "providers": [
+        {
+          "id": "rea-dotnet-workflows",
+          "name": "REA managed-code workflows",
+          "note": "Beépített REA provider (.NET workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "extract_firmware",
+      "name_en": "extract_firmware",
+      "name_hu": "Firmware kigyűjtése",
+      "description_hu": "Kiválasztott firmware-bájtok kigyűjtése, ellenőrzött fájlokkal és eredettel.",
+      "family": "firmware",
+      "surface": "firmware-provider",
+      "category": "Firmware",
+      "target_formats": [
+        "Firmware image"
+      ],
+      "url_applicable": "no",
+      "cli_command": "extract-firmware",
+      "providers": [
+        {
+          "id": "unblob",
+          "name": "Unblob",
+          "note": "Külső eszköz (telepítendő): unblob.",
+          "license": "nyílt forrás"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_firmware_regions",
+      "name_en": "inspect_firmware_regions",
+      "name_hu": "Firmware-régiók vizsgálata",
+      "description_hu": "Firmware-aláírásjelöltek vizsgálata kigyűjtés nélkül.",
+      "family": "firmware",
+      "surface": "firmware-provider",
+      "category": "Firmware",
+      "target_formats": [
+        "Firmware image"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-firmware-regions",
+      "providers": [
+        {
+          "id": "binwalk",
+          "name": "Binwalk",
+          "note": "Külső eszköz (telepítendő): binwalk.",
+          "license": "nyílt forrás"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_android_class",
+      "name_en": "inspect_android_class",
+      "name_hu": "Android osztály vizsgálata",
+      "description_hu": "Egy pontos APK-osztály tag-leltárának vizsgálata.",
+      "family": "android",
+      "surface": "android-provider",
+      "category": "Android APK",
+      "target_formats": [
+        "Android APK"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-android-class",
+      "providers": [
+        {
+          "id": "jadx",
+          "name": "JADX headless",
+          "note": "Külső eszköz (telepítendő): JADX headless.",
+          "license": "nyílt forrás"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_android_method",
+      "name_en": "inspect_android_method",
+      "name_hu": "Android metódus vizsgálata",
+      "description_hu": "Egy APK-metódus decompile-ja explicit túlterhelés-választással.",
+      "family": "android",
+      "surface": "android-provider",
+      "category": "Android APK",
+      "target_formats": [
+        "Android APK"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-android-method",
+      "providers": [
+        {
+          "id": "jadx",
+          "name": "JADX headless",
+          "note": "Külső eszköz (telepítendő): JADX headless.",
+          "license": "nyílt forrás"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_android_package",
+      "name_en": "inspect_android_package",
+      "name_hu": "Android csomag vizsgálata",
+      "description_hu": "APK-deklarációk és dekódolt manifest vizsgálata futtatás nélkül.",
+      "family": "android",
+      "surface": "android-provider",
+      "category": "Android APK",
+      "target_formats": [
+        "Android APK"
+      ],
+      "url_applicable": "no",
+      "cli_command": "inspect-android-package",
+      "providers": [
+        {
+          "id": "jadx",
+          "name": "JADX headless",
+          "note": "Külső eszköz (telepítendő): JADX headless.",
+          "license": "nyílt forrás"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "search_android_classes",
+      "name_en": "search_android_classes",
+      "name_hu": "Android osztály-keresés",
+      "description_hu": "APK osztálynevek keresése; üres lekérdezés az összeset leltárazza.",
+      "family": "android",
+      "surface": "android-provider",
+      "category": "Android APK",
+      "target_formats": [
+        "Android APK"
+      ],
+      "url_applicable": "no",
+      "cli_command": "search-android-classes",
+      "providers": [
+        {
+          "id": "jadx",
+          "name": "JADX headless",
+          "note": "Külső eszköz (telepítendő): JADX headless.",
+          "license": "nyílt forrás"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "trace_android_references",
+      "name_en": "trace_android_references",
+      "name_hu": "Android referenciák nyomkövetése",
+      "description_hu": "Bejövő APK-osztály vagy egyedi-metódus referenciák nyomon követése.",
+      "family": "android",
+      "surface": "android-provider",
+      "category": "Android APK",
+      "target_formats": [
+        "Android APK"
+      ],
+      "url_applicable": "no",
+      "cli_command": "trace-android-references",
+      "providers": [
+        {
+          "id": "jadx",
+          "name": "JADX headless",
+          "note": "Külső eszköz (telepítendő): JADX headless.",
+          "license": "nyílt forrás"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "analyze_web_bundle",
+      "name_en": "analyze_web_bundle",
+      "name_hu": "Web bundle elemzése",
+      "description_hu": "Oldal-bundle rögzítése és statikus elemzése: chunk-élek, route- és endpoint-jelöltek, vendor-ujjlenyomatok, statikus WebMCP deklarációk, opcionálisan source-map/eredeti forrás.",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "analyze-web-bundle",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "capture_browser_scenario",
+      "name_en": "capture_browser_scenario",
+      "name_hu": "Böngésző-forgatókönyv rögzítése",
+      "description_hu": "Egy korlátozott Playwright böngésző-forgatókönyv lefuttatása és bizonyíték visszaadása (aktív).",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "capture-browser-scenario",
+      "providers": [
+        {
+          "id": "rea-playwright-browser-scenario",
+          "name": "REA Playwright browser scenario capture provider",
+          "note": "Beépített REA provider + Playwright/Chromium.",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "capture_web_screenshot",
+      "name_en": "capture_web_screenshot",
+      "name_hu": "Weboldal képernyőkép",
+      "description_hu": "Egy látható viewport tartalomcímzett PNG-képernyőképe.",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "capture-web-screenshot",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "compare_web_captures",
+      "name_en": "compare_web_captures",
+      "name_hu": "Web capture-ök összehasonlítása",
+      "description_hu": "Két normalizált passzív capture vagy rögzített böngésző-forgatókönyv összehasonlítása.",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "compare-web-captures",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "compare_web_screenshots",
+      "name_en": "compare_web_screenshots",
+      "name_hu": "Képernyőképek összehasonlítása",
+      "description_hu": "Két önellenőrző PNG-artifact pixel-összehasonlítása külső szolgáltatás nélkül.",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "compare-web-screenshots",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "discover_webmcp_tools",
+      "name_en": "discover_webmcp_tools",
+      "name_hu": "WebMCP eszközök felderítése",
+      "description_hu": "Az oldal által deklarált WebMCP eszközök passzív felderítése (séma-összegzéssel).",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "discover-webmcp-tools",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "inspect_web_page",
+      "name_en": "inspect_web_page",
+      "name_hu": "Weboldal vizsgálata",
+      "description_hu": "Egy oldal passzív vizsgálata CDP-n át: DOM, akadálymentesség, scriptek, erőforrások, hálózat/konzol metaadatok, WebSocket-méretek, tárolókulcsok.",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "inspect-web-page",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "list_browser_targets",
+      "name_en": "list_browser_targets",
+      "name_hu": "Böngésző célpontok listája",
+      "description_hu": "Egy kiválasztott loopback CDP-böngésző oldal-célpontjainak listázása, opcionális origin-szűréssel.",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "list-browser-targets",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "observe_web_session",
+      "name_en": "observe_web_session",
+      "name_hu": "Web-munkamenet megfigyelése",
+      "description_hu": "Megfigyelési ablak egy felhasználó-vezérelt oldalnavigációra: reload, SPA-navigáció, átirányítás, hiba, életciklus.",
+      "family": "browser",
+      "surface": "browser-provider",
+      "category": "Böngésző / weboldal",
+      "target_formats": [
+        "Weboldal (http/https)"
+      ],
+      "url_applicable": "yes",
+      "cli_command": "observe-web-session",
+      "providers": [
+        {
+          "id": "rea-cdp-browser",
+          "name": "REA Chrome DevTools Protocol observation provider",
+          "note": "Beépített REA provider + Chrome/Chromium böngésző (CDP loopback).",
+          "license": "MIT (REA) + Chromium"
+        }
+      ],
+      "availability": {
+        "available": true,
+        "reason": "Chromium elérhető (known-path: /opt/pw-browsers/chromium-1243/chrome-linux64/chrome)",
+        "code": "ready",
+        "effects": {
+          "launches_process": true,
+          "may_access_network": true
+        },
+        "limitations": [
+          "A célpontot a worker indítja távoli hibakeresésű böngészőben; csak loopback CDP-végpont engedélyezett."
+        ]
+      }
+    },
+    {
+      "id": "analyze_javascript_application",
+      "name_en": "analyze_javascript_application",
+      "name_hu": "JS-alkalmazás elemzése",
+      "description_hu": "Helyi JavaScript/Electron alkalmazás statikus rekonstrukciója.",
+      "family": "electron",
+      "surface": "electron-provider",
+      "category": "Electron / helyi JS-alkalmazás",
+      "target_formats": [
+        "Electron app",
+        "Helyi JS alkalmazás"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "analyze-javascript-application",
+      "providers": [
+        {
+          "id": "rea-javascript-application",
+          "name": "REA JavaScript application analyzer",
+          "note": "Beépített REA provider (JS app).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "capture_electron_scenario",
+      "name_en": "capture_electron_scenario",
+      "name_hu": "Electron-forgatókönyv rögzítése",
+      "description_hu": "Egy korlátozott, saját Electron-forgatókönyv lefuttatása.",
+      "family": "electron",
+      "surface": "electron-provider",
+      "category": "Electron / helyi JS-alkalmazás",
+      "target_formats": [
+        "Electron app",
+        "Helyi JS alkalmazás"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "capture-electron-scenario",
+      "providers": [
+        {
+          "id": "rea-playwright-electron-active",
+          "name": "REA Playwright active Electron observation provider",
+          "note": "Beépített REA provider + Playwright + Electron.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_electron_page",
+      "name_en": "inspect_electron_page",
+      "name_hu": "Electron oldal vizsgálata",
+      "description_hu": "Egy Electron file:// oldal passzív vizsgálata.",
+      "family": "electron",
+      "surface": "electron-provider",
+      "category": "Electron / helyi JS-alkalmazás",
+      "target_formats": [
+        "Electron app",
+        "Helyi JS alkalmazás"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "inspect-electron-page",
+      "providers": [
+        {
+          "id": "rea-cdp-electron",
+          "name": "REA Electron file-page CDP observation provider",
+          "note": "Beépített REA provider + Electron alkalmazás.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_electron_targets",
+      "name_en": "list_electron_targets",
+      "name_hu": "Electron célpontok listája",
+      "description_hu": "A kiválasztott Electron CDP-végpont helyi file-oldalainak listázása.",
+      "family": "electron",
+      "surface": "electron-provider",
+      "category": "Electron / helyi JS-alkalmazás",
+      "target_formats": [
+        "Electron app",
+        "Helyi JS alkalmazás"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "list-electron-targets",
+      "providers": [
+        {
+          "id": "rea-cdp-electron",
+          "name": "REA Electron file-page CDP observation provider",
+          "note": "Beépített REA provider + Electron alkalmazás.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "reconcile_javascript_runtime",
+      "name_en": "reconcile_javascript_runtime",
+      "name_hu": "JS futásidő egyeztetése",
+      "description_hu": "Statikus alkalmazás- és passzív futásidő-bizonyíték egyeztetése.",
+      "family": "electron",
+      "surface": "electron-provider",
+      "category": "Electron / helyi JS-alkalmazás",
+      "target_formats": [
+        "Electron app",
+        "Helyi JS alkalmazás"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "reconcile-javascript-runtime",
+      "providers": [
+        {
+          "id": "rea-javascript-runtime-reconciliation",
+          "name": "REA JavaScript runtime reconciliation",
+          "note": "Beépített REA provider (JS futásidő-egyeztetés).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_javascript_runtime_targets",
+      "name_en": "list_javascript_runtime_targets",
+      "name_hu": "JS futásidő célpontok",
+      "description_hu": "Node/Electron V8 Inspector célpontok listázása.",
+      "family": "javascript-runtime",
+      "surface": "runtime-provider",
+      "category": "JavaScript futásidő (V8 Inspector)",
+      "target_formats": [
+        "Node/Electron V8 Inspector"
+      ],
+      "url_applicable": "no",
+      "cli_command": "list-javascript-runtime-targets",
+      "providers": [
+        {
+          "id": "rea-v8-inspector",
+          "name": "REA passive Node/Electron V8 Inspector provider",
+          "note": "Beépített REA provider + futó Node/Electron inspector.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "observe_javascript_runtime",
+      "name_en": "observe_javascript_runtime",
+      "name_hu": "JS futásidő megfigyelése",
+      "description_hu": "Egy pontos Node/Electron Inspector-célpont passzív megfigyelése.",
+      "family": "javascript-runtime",
+      "surface": "runtime-provider",
+      "category": "JavaScript futásidő (V8 Inspector)",
+      "target_formats": [
+        "Node/Electron V8 Inspector"
+      ],
+      "url_applicable": "no",
+      "cli_command": "observe-javascript-runtime",
+      "providers": [
+        {
+          "id": "rea-v8-inspector",
+          "name": "REA passive Node/Electron V8 Inspector provider",
+          "note": "Beépített REA provider + futó Node/Electron inspector.",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "build_reconstruction_obligation_ledger",
+      "name_en": "build_reconstruction_obligation_ledger",
+      "name_hu": "Rekonstrukciós kötelezettség-főkönyv",
+      "description_hu": "Determinisztikus, bizonyíték-alapú rekonstrukciós kötelezettség-főkönyv oldal generálása.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "build-reconstruction-obligation-ledger",
+      "providers": [
+        {
+          "id": "rea-javascript-application-workflows",
+          "name": "REA JavaScript application workflows",
+          "note": "Beépített REA provider (JS workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "compare_application_versions",
+      "name_en": "compare_application_versions",
+      "name_hu": "App-verziók összehasonlítása",
+      "description_hu": "Két hitelesített JavaScript Application Graph verzió összehasonlítása.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "compare-application-versions",
+      "providers": [
+        {
+          "id": "rea-javascript-application-workflows",
+          "name": "REA JavaScript application workflows",
+          "note": "Beépített REA provider (JS workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "compare_javascript_export_shapes",
+      "name_en": "compare_javascript_export_shapes",
+      "name_hu": "JS export-alakok összehasonlítása",
+      "description_hu": "Pontos statikus JS export-visszatérési alakok összehasonlítása végrehajtás nélkül.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "compare-javascript-export-shapes",
+      "providers": [
+        {
+          "id": "rea-javascript-application-workflows",
+          "name": "REA JavaScript application workflows",
+          "note": "Beépített REA provider (JS workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "compare_source_to_bundle",
+      "name_en": "compare_source_to_bundle",
+      "name_hu": "Forrás ↔ bundle összehasonlítás",
+      "description_hu": "Committelt történeti forrás összevetése hitelesített alkalmazás-bizonyítékkal.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "compare-source-to-bundle",
+      "providers": [
+        {
+          "id": "rea-javascript-application-workflows",
+          "name": "REA JavaScript application workflows",
+          "note": "Beépített REA provider (JS workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "evaluate_reconstruction_coverage",
+      "name_en": "evaluate_reconstruction_coverage",
+      "name_hu": "Rekonstrukciós fedettség értékelése",
+      "description_hu": "Inline, fail-closed rekonstrukciós fedettség kiértékelése.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "evaluate-reconstruction-coverage",
+      "providers": [
+        {
+          "id": "rea-javascript-application-workflows",
+          "name": "REA JavaScript application workflows",
+          "note": "Beépített REA provider (JS workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "export_web_scripts",
+      "name_en": "export_web_scripts",
+      "name_hu": "Web scriptek exportálása",
+      "description_hu": "Megőrzött weboldal-scriptek exportálása egy üres könyvtárba statikus JS-elemzéshez.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "export-web-scripts",
+      "providers": [
+        {
+          "id": "rea-web-script-export",
+          "name": "REA captured script export",
+          "note": "Beépített REA provider (script-export).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "trace_application_feature",
+      "name_en": "trace_application_feature",
+      "name_hu": "App-feature nyomkövetése",
+      "description_hu": "Egy típusos seed nyomon követése a hitelesített alkalmazás-bizonyítékban.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "trace-application-feature",
+      "providers": [
+        {
+          "id": "rea-javascript-application-workflows",
+          "name": "REA JavaScript application workflows",
+          "note": "Beépített REA provider (JS workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "trace_javascript_semantics",
+      "name_en": "trace_javascript_semantics",
+      "name_hu": "JS-szemantika nyomkövetése",
+      "description_hu": "Korlátozott statikus szemantikai relációk nyomon követése a hitelesített alkalmazás-bizonyítékban.",
+      "family": "application",
+      "surface": "application-workflow",
+      "category": "Alkalmazás-munkafolyamat (JS)",
+      "target_formats": [
+        "Rögzített web/JS bizonyíték",
+        "Exportált scriptek"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "trace-javascript-semantics",
+      "providers": [
+        {
+          "id": "rea-javascript-application-workflows",
+          "name": "REA JavaScript application workflows",
+          "note": "Beépített REA provider (JS workflow).",
+          "license": "MIT (REA)"
+        }
+      ],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "binary_session",
+      "name_en": "binary_session",
+      "name_hu": "Bináris munkamenet",
+      "description_hu": "Bináris elemzési munkamenet kezelése.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "build_call_path",
+      "name_en": "build_call_path",
+      "name_hu": "Hívási út építése",
+      "description_hu": "Hívási út felépítése a bizonyítékból.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "capture_process_scenario",
+      "name_en": "capture_process_scenario",
+      "name_hu": "Folyamat-forgatókönyv rögzítése",
+      "description_hu": "Egy hívó által kiválasztott folyamat-forgatókönyv rögzítése.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "close_binary",
+      "name_en": "close_binary",
+      "name_hu": "Bináris bezárása",
+      "description_hu": "A megnyitott bináris bezárása.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "compare_artifacts",
+      "name_en": "compare_artifacts",
+      "name_hu": "Artifactok összehasonlítása",
+      "description_hu": "Két kanonikus bizonyíték-csomag (artifact) összehasonlítása.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "compare_bundles",
+      "name_en": "compare_bundles",
+      "name_hu": "Bundle-ök összehasonlítása",
+      "description_hu": "Két bundle összehasonlítása.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "compare_functions",
+      "name_en": "compare_functions",
+      "name_hu": "Függvények összehasonlítása",
+      "description_hu": "Két függvény összehasonlítása.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "compare_process_captures",
+      "name_en": "compare_process_captures",
+      "name_hu": "Folyamat-capture-ök összehasonlítása",
+      "description_hu": "Két folyamat-capture bizonyíték-JSON összehasonlítása.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": "compare-process-captures",
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "correlate_static_and_runtime",
+      "name_en": "correlate_static_and_runtime",
+      "name_hu": "Statikus↔futásidő korreláció",
+      "description_hu": "Statikus és futásidejű bizonyíték korrelálása.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "export_evidence_bundle",
+      "name_en": "export_evidence_bundle",
+      "name_hu": "Bizonyíték-csomag exportálása",
+      "description_hu": "Kanonikus bizonyíték-JSON ellenőrzése és atomi exportja.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "find_changed_behavior",
+      "name_en": "find_changed_behavior",
+      "name_hu": "Változott viselkedés keresése",
+      "description_hu": "Viselkedésbeli változások keresése bizonyítékok közt.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "get_evidence_bundle",
+      "name_en": "get_evidence_bundle",
+      "name_hu": "Bizonyíték-csomag lekérése",
+      "description_hu": "Egy bizonyíték-csomag lekérése.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "get_navigation_context",
+      "name_en": "get_navigation_context",
+      "name_hu": "Navigációs kontextus",
+      "description_hu": "Az aktuális navigációs kontextus lekérése.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "import_evidence_bundle",
+      "name_en": "import_evidence_bundle",
+      "name_hu": "Bizonyíték-csomag importálása",
+      "description_hu": "Korlátozott helyi bizonyíték-csomag ellenőrzése és importja.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "inspect_address_context",
+      "name_en": "inspect_address_context",
+      "name_hu": "Cím-kontextus vizsgálata",
+      "description_hu": "Egy cím körüli kontextus vizsgálata.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "list_unknowns",
+      "name_en": "list_unknowns",
+      "name_hu": "Ismeretlenek listája",
+      "description_hu": "A rögzített ismeretlenek (unknowns) listázása.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "open_binary",
+      "name_en": "open_binary",
+      "name_hu": "Bináris megnyitása",
+      "description_hu": "Egy bináris megnyitása elemzésre.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "record_unknown",
+      "name_en": "record_unknown",
+      "name_hu": "Ismeretlen rögzítése",
+      "description_hu": "Egy ismeretlen elem rögzítése a munkamenetben.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "update_unknown",
+      "name_en": "update_unknown",
+      "name_hu": "Ismeretlen frissítése",
+      "description_hu": "Egy rögzített ismeretlen frissítése.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "verify_reconstruction",
+      "name_en": "verify_reconstruction",
+      "name_hu": "Rekonstrukció ellenőrzése",
+      "description_hu": "Egy rekonstrukció ellenőrzése bizonyíték ellen.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    },
+    {
+      "id": "verify_unknown_resolution",
+      "name_en": "verify_unknown_resolution",
+      "name_hu": "Ismeretlen feloldás ellenőrzése",
+      "description_hu": "Egy ismeretlen feloldásának ellenőrzése.",
+      "family": "session",
+      "surface": "session",
+      "category": "Munkamenet / bizonyíték / összehasonlítás",
+      "target_formats": [
+        "Evidence bundle",
+        "Munkamenet"
+      ],
+      "url_applicable": "conditional",
+      "cli_command": null,
+      "providers": [],
+      "availability": {
+        "available": null,
+        "reason": "Nincs capability-adat erre a műveletre.",
+        "code": null,
+        "effects": null,
+        "limitations": []
+      }
+    }
+  ]
+}
