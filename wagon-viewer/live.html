@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Élő kocsitérkép – MÁV</title>
+<style>
+  :root{
+    --bg:#0b1220; --panel:#111a2e; --card:#16233f; --line:#243352;
+    --txt:#e7edf7; --muted:#9fb0cc; --accent:#3b82f6;
+    --free:#16a34a; --reserved:#dc2626; --na:#9ca3af;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f4f7fc; --panel:#ffffff; --card:#ffffff; --line:#e2e8f0;
+      --txt:#0f172a; --muted:#53657f; --accent:#2563eb;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 system-ui,Segoe UI,Roboto,Arial,sans-serif}
+  header{padding:16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+  header h1{font-size:18px;margin:0;font-weight:700}
+  header .sub{color:var(--muted);font-size:13px}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  .loader{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:16px}
+  .loader textarea{width:100%;min-height:96px;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+  button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:600;cursor:pointer}
+  button.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+  .hint{color:var(--muted);font-size:13px}
+  .trainbar{display:flex;gap:10px;overflow-x:auto;padding:12px 2px}
+  .car{min-width:118px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer;flex:0 0 auto;transition:.15s;position:relative}
+  .car.sel{outline:2px solid var(--accent);transform:translateY(-2px)}
+  .car .silh{font-size:26px;text-align:center}
+  .car .lbl{font-weight:700;margin-top:4px}
+  .car .meta{color:var(--muted);font-size:12px;min-height:16px}
+  .car .fac{font-size:14px;margin-top:2px}
+  .car .occbar{height:8px;border-radius:6px;background:#334155;overflow:hidden;margin-top:8px}
+  .car .occbar span{display:block;height:100%}
+  .car .occlbl{font-size:11px;color:var(--muted);margin-top:4px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:12px;min-height:160px}
+  .panel h2{margin:0 0 6px;font-size:16px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;color:var(--muted);font-size:13px}
+  .legend b{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+  .counts{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:13px}
+  .pill{padding:3px 9px;border-radius:999px;font-weight:600}
+  .pill.free{background:rgba(22,163,74,.15);color:var(--free)}
+  .pill.res{background:rgba(220,38,38,.15);color:var(--reserved)}
+  /* MÁV SVG réteg felülszínezése kattintáskor */
+  .svgbox{overflow:auto;border:1px dashed var(--line);border-radius:10px;padding:8px;background:var(--bg)}
+  .svgbox svg{max-width:100%;height:auto}
+  .svgbox g[id^="ules_"]{fill:var(--free)}
+  .svgbox g[id^="ules_"].seat-disabled,
+  .svgbox g[id^="ules_"].seat-forbidden,
+  .svgbox g[id^="ules_"].bicycleSeat{fill:var(--reserved)}
+  /* rácsos tartalék */
+  .grid{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .srow{display:flex;gap:6px;align-items:center}
+  .seat{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff}
+  .seat.free{background:var(--free)}
+  .seat.reserved{background:var(--reserved)}
+  .err{color:#fca5a5;font-size:13px;margin-top:6px;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<header>
+  <h1>🚆 Élő kocsitérkép</h1>
+  <span class="sub">valódi MÁV <code>GetGraphicalPlaceReservationMap</code> válaszból · zöld = szabad, piros = foglalt</span>
+</header>
+
+<div class="wrap">
+  <div class="loader">
+    <div class="hint">Illeszd be ide a böngésződből kimentett <b>GetGraphicalPlaceReservationMap</b> választ (JSON), vagy tedd a fájlt a <code>data/live-reservation.json</code> helyre és nyomd a „Fájl betöltése" gombot. (A felhőből nem kérhető le – lásd az útmutatót.)</div>
+    <div class="row">
+      <textarea id="json" placeholder='{ "reservationMap": { "train": { "carriages": [ ... ] } } }'></textarea>
+    </div>
+    <div class="row">
+      <button id="btnLoad">Beillesztett JSON betöltése</button>
+      <button class="ghost" id="btnFile">Fájl betöltése (data/live-reservation.json)</button>
+      <button class="ghost" id="btnDemo">Demó adat</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div id="trainInfo" class="hint"></div>
+  <div class="trainbar" id="trainbar"></div>
+  <div class="panel" id="panel">
+    <div class="hint">Tölts be egy valódi választ, majd válassz egy kocsit.</div>
+  </div>
+</div>
+
+<script src="live/mav-reservation-adapter.js"></script>
+<script>
+(function(){
+  var FAC={bike:"🚲",wheelchair:"♿",quiet:"🤫",family:"👪",power:"🔌"};
+  var trainbar=document.getElementById("trainbar");
+  var panel=document.getElementById("panel");
+  var info=document.getElementById("trainInfo");
+  var err=document.getElementById("err");
+  var current=null, sel=null;
+
+  function showErr(m){ err.textContent=m||""; }
+
+  function render(train){
+    current=train; sel=null;
+    info.innerHTML = train.from||train.to
+      ? "<b>"+(train.name||"")+"</b> · "+(train.from||"?")+" → "+(train.to||"?")+(train.date?" · "+train.date:"")
+      : "<b>"+(train.name||"Vonat")+"</b>";
+    trainbar.innerHTML="";
+    train.cars.forEach(function(car,idx){
+      var el=document.createElement("div");
+      el.className="car"+(idx===sel?" sel":"");
+      var hasSeats=car.total>0;
+      var pct = car.total? Math.round(((car.total-car.availableSeatsCount)/car.total)*100):0;
+      var fac=(car.facilities||[]).map(function(f){return FAC[f]||"";}).join(" ");
+      el.innerHTML =
+        '<div class="silh">'+(hasSeats?"🚃":"🚆")+'</div>'+
+        '<div class="lbl">Kocsi '+car.label+'</div>'+
+        '<div class="meta">'+(hasSeats?(car.availableSeatsCount+" szabad / "+car.total):(car.type||"nincs térkép"))+'</div>'+
+        (fac?'<div class="fac">'+fac+'</div>':'')+
+        (hasSeats?('<div class="occbar"><span style="width:'+pct+'%;background:'+car.fullness.color+'"></span></div>'+
+                   '<div class="occlbl">'+car.fullness.label+'</div>'):'');
+      if(hasSeats) el.addEventListener("click",function(){ selectCar(idx); });
+      trainbar.appendChild(el);
+    });
+    panel.innerHTML='<div class="hint">Válassz egy kocsit a fenti sorból.</div>';
+  }
+
+  function selectCar(idx){
+    sel=idx;
+    Array.prototype.forEach.call(trainbar.children,function(c,i){c.classList.toggle("sel",i===idx);});
+    var car=current.cars[idx];
+    var legend='<div class="legend">'+
+      '<span><b style="background:var(--free)"></b>szabad</span>'+
+      '<span><b style="background:var(--reserved)"></b>foglalt</span>'+
+      (car.facilities&&car.facilities.length?'<span>'+car.facilities.map(function(f){return FAC[f]+" "+f;}).join(" · ")+'</span>':'')+
+      '</div>';
+    var body;
+    var svg=car.svgHorizontal||car.svgVertical;
+    if(svg){
+      body='<div class="svgbox">'+svg+'</div>';
+    } else {
+      // rácsos tartalék a kiolvasott ülés-listából
+      var cells=car.seats.map(function(s){
+        return '<div class="seat '+(s.reserved?"reserved":"free")+'" title="'+s.no+'. hely – '+(s.reserved?"foglalt":"szabad")+'">'+s.no+'</div>';
+      }).join("");
+      body='<div class="grid"><div class="srow">'+cells+'</div></div>';
+    }
+    var occ=car.total-car.availableSeatsCount;
+    panel.innerHTML =
+      '<h2>Kocsi '+car.label+' – ülés-térkép</h2>'+
+      legend+ body+
+      '<div class="counts">'+
+        '<span class="pill free">● '+car.availableSeatsCount+' szabad</span>'+
+        '<span class="pill res">● '+occ+' foglalt</span>'+
+        '<span style="color:var(--muted)">összesen '+car.total+' hely · '+car.fullness.label+'</span>'+
+      '</div>';
+  }
+
+  function loadFrom(obj,meta){
+    try{
+      showErr("");
+      var train=window.MAVAdapter.mavReservationMapToTrain(obj,meta||{});
+      render(train);
+    }catch(e){ showErr("Hiba: "+e.message); }
+  }
+
+  document.getElementById("btnLoad").addEventListener("click",function(){
+    var t=document.getElementById("json").value.trim();
+    if(!t){ showErr("Előbb illeszd be a JSON választ."); return; }
+    var obj; try{ obj=JSON.parse(t); }catch(e){ showErr("Érvénytelen JSON: "+e.message); return; }
+    loadFrom(obj);
+  });
+  document.getElementById("btnFile").addEventListener("click",function(){
+    fetch("data/live-reservation.json",{cache:"no-store"})
+      .then(function(r){ if(!r.ok) throw new Error("data/live-reservation.json nem található ("+r.status+")"); return r.json(); })
+      .then(function(o){ loadFrom(o); })
+      .catch(function(e){ showErr(e.message); });
+  });
+  document.getElementById("btnDemo").addEventListener("click",function(){
+    fetch("data/demo-reservation.json",{cache:"no-store"})
+      .then(function(r){ if(!r.ok) throw new Error("demó nem elérhető"); return r.json(); })
+      .then(function(o){ loadFrom(o,{name:"Demó IC 702",from:"Budapest-Nyugati",to:"Debrecen",date:"minta"}); })
+      .catch(function(e){ showErr(e.message); });
+  });
+
+  // ha van kész fájl, induláskor próbáljuk betölteni (némán)
+  fetch("data/live-reservation.json",{cache:"no-store"})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(o){ if(o) loadFrom(o); })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>

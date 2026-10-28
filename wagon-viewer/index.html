@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<title>Vonat-összeállítás néző</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#111827; --panel2:#0b1220; --border:#1f2937; --text:#e5e7eb; --muted:#94a3b8;
+    --accent:#38bdf8; --loco:#334155;
+    --free:#16a34a; --free-bg:#16a34a22; --reserved:#dc2626; --reserved-bg:#dc262622;
+    --radius:14px; --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:light){
+    :root{ --bg:#eef2f7; --panel:#fff; --panel2:#f8fafc; --border:#e2e8f0; --text:#0f172a; --muted:#64748b; --loco:#cbd5e1; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.45}
+  header{padding:.9rem 1rem;border-bottom:1px solid var(--border);background:var(--panel);position:sticky;top:0;z-index:5}
+  header h1{margin:0;font-size:1.05rem}
+  header .sub{color:var(--muted);font-size:.78rem}
+  .wrap{max-width:1100px;margin:0 auto;padding:1rem}
+  .trainbar{display:flex;gap:.5rem;overflow-x:auto;padding:.6rem;background:var(--panel2);border:1px solid var(--border);border-radius:var(--radius)}
+  .car{flex:0 0 auto;min-width:96px;border:1px solid var(--border);border-radius:12px;background:var(--panel);
+       cursor:pointer;padding:.5rem;text-align:center;transition:border-color .15s, transform .1s}
+  .car:hover{transform:translateY(-2px)}
+  .car.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+  .car.loco{cursor:default;opacity:.95}
+  .car .silhouette{height:34px;border-radius:7px;background:var(--panel2);border:1px solid var(--border);
+       display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:.35rem}
+  .car.loco .silhouette{background:var(--loco)}
+  .car .lbl{font-weight:700;font-size:.82rem}
+  .car .meta{font-size:.68rem;color:var(--muted)}
+  .car .occ{margin-top:.25rem;height:5px;border-radius:999px;background:var(--border);overflow:hidden}
+  .car .occ>span{display:block;height:100%;background:var(--reserved)}
+  .fac{display:inline-flex;gap:2px;flex-wrap:wrap;justify-content:center;margin-top:.2rem;font-size:.7rem}
+  .legend{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0;font-size:.82rem;color:var(--muted)}
+  .legend b{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+  .panel{margin-top:1rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);padding:1rem}
+  .panel h2{margin:0 0 .2rem;font-size:1rem}
+  .panel .psub{color:var(--muted);font-size:.8rem;margin-bottom:.8rem}
+  .seatmap{display:flex;flex-direction:column;gap:.5rem;align-items:center}
+  .srow{display:flex;gap:.4rem;align-items:center}
+  .srow .rownum{width:22px;text-align:right;color:var(--muted);font-size:.7rem}
+  .aisle{width:16px}
+  .seat{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;
+        font-size:.62rem;font-weight:700;border:1.5px solid;cursor:default;user-select:none}
+  .seat.free{color:var(--free);border-color:var(--free);background:var(--free-bg)}
+  .seat.reserved{color:var(--reserved);border-color:var(--reserved);background:var(--reserved-bg)}
+  .seat.window{box-shadow:0 2px 0 var(--accent)}
+  .counts{display:flex;gap:1rem;margin-top:.8rem;font-size:.85rem;flex-wrap:wrap}
+  .pill{padding:.15rem .5rem;border-radius:999px;font-size:.72rem;font-weight:700}
+  .pill.free{color:var(--free);background:var(--free-bg)}
+  .pill.res{color:var(--reserved);background:var(--reserved-bg)}
+  .empty{color:var(--muted);text-align:center;padding:1.5rem}
+  .note{margin-top:1rem;font-size:.75rem;color:var(--muted);border-top:1px dashed var(--border);padding-top:.7rem}
+  select{padding:.4rem .6rem;border-radius:9px;border:1px solid var(--border);background:var(--panel);color:var(--text)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding:0">
+    <h1>🚆 Vonat-összeállítás néző <span style="font-size:.7rem;color:var(--muted)">— demó (minta-adat)</span></h1>
+    <div class="sub">Mozdony + kocsik sorrendben · kocsira kattintva a foglalt/szabad ülések</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div style="display:flex;gap:.6rem;align-items:center;margin-bottom:.8rem;flex-wrap:wrap">
+    <label>Vonat: <select id="trainSel"></select></label>
+    <span id="trainInfo" class="sub" style="color:var(--muted)"></span>
+  </div>
+
+  <div class="trainbar" id="trainbar" role="list" aria-label="Kocsik sorrendben"></div>
+
+  <div class="legend">
+    <span><b style="background:var(--free)"></b>szabad</span>
+    <span><b style="background:var(--reserved)"></b>foglalt</span>
+    <span><b style="background:var(--accent)"></b>ablak melletti</span>
+    <span>🚲 kerékpár · ♿ kerekesszék · 🤫 csendes · 🍽️ étkező</span>
+  </div>
+
+  <div class="panel" id="panel">
+    <div class="empty">Válassz egy kocsit a fenti sorból az ülés-térképhez.</div>
+  </div>
+
+  <div class="note" id="note"></div>
+</div>
+
+<script src="data/sample-train.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
