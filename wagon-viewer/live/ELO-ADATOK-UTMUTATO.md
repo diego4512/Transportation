@@ -43,30 +43,39 @@ Ennyi: a kocsik és az ülések a **valódi foglaltsággal** jelennek meg.
 
 ## Mit vár az oldal (a valódi válasz szerkezete)
 
-A `GetGraphicalPlaceReservationMap` válasz így néz ki (a kliens-forrásból visszafejtve):
+Élő mintán ellenőrizve (204-es vonat, Budapest-Kelenföld → Balatonlelle, 2026-10-28,
+mentve: `data/live-reservation.json`):
 
 ```
-{ "reservationMap": { "train": {
-    "trainServiceNames": ["InterCity", ...],
-    "carriages": [
-      {
-        "number": 21,
-        "availableSeatsCount": 22,
-        "placeServices": [ { "uicCode": "52", ... } ],   // 52=csendes, 106=bicikli, 107/108=akadálymentes
-        "layoutPathHorizontal": "<svg> ... <g id=\"ules_5\" class=\"seat-disabled\">...</g> ... </svg>",
-        "layoutPathVertical":   "<svg> ... </svg>",
-        "seats": [ { "number": "5", "feeCodes": [...] } ]
-      }
-    ]
+{ "reservationMap": { "seatCount": 0, "train": {
+    "number": "204", "departure": "Budapest-Kelenf.", "destination": "Balatonlelle",
+    "startTime": "2026-10-28T15:42:00+01:00", "arrivalTime": "...",
+    "trainServiceNames": ["Helyjegy váltása kötelező", ...],
+    "carriages": [ {
+        "number": "424", "availableSeatsCount": 31, "physicalOrder": 1, "sellingOrder": 1,
+        "placeServices": [ { "uicCode": "02", "name": "Termeskocsi" } ],   // 01 = fülkés, 02 = termes
+        "feeCodes": [ { "uicCode": "B" } ],                                 // OB = kerékpárhely
+        "layoutPathHorizontal": "<svg>…</svg>",   // lehet ÜRES string is!
+        "layoutPathVertical":   "<svg>…</svg>",
+        "compartments": [ { "number": "01", "seats": [ ... ] } ],
+        "seats": [ { "number": "015", "reservation": 0,
+                     "placePositionService": "positionOfSeatSeatWindow" } ]
+    } ]
 } } }
 ```
 
-- A **foglalt** ülést az SVG-ben a `<g id="ules_NNN">` elem **osztálya** jelzi:
-  `seat-disabled` / `seat-forbidden` / `bicycleSeat` → foglalt/nem foglalható.
-  Minden más `ules_` csoport **szabad**.
-- Ha nincs SVG a válaszban, az oldal a `seats[]` tömbből rajzol rácsot.
+- **Ülés-állapot:** `seats[].reservation` – `0` = szabad, `1` = foglalt, `2` = nem
+  foglalható. A `0`-k száma pontosan egyezik az `availableSeatsCount`-tal.
+- **SVG:** minden `<g id="ules_NNN">` alatt négy réteg van – `foglalhato`, `foglalt`,
+  `kijelolt`, `nem_foglalhato` –, ebből mindig csak az állapotnak megfelelő látszik.
+  Az adapter `data-state` attribútumot ír a csoportra, a CSS ez alapján rejt el.
+  (Osztály nincs az üléseken; régi/demó SVG-nél a `seat-disabled` / `seat-forbidden` /
+  `bicycleSeat` osztály a tartalék.)
+- **Ha nincs SVG** (a mintában a 423-as és a 3-as kocsinál üres): az oldal a
+  `compartments[]` alapján fülkénkénti rácsot rajzol; kerékpárhelyes kocsinál 🚲 jelöléssel.
+- Keskeny kijelzőn (≤ 700 px) a függőleges (`layoutPathVertical`) rajz jelenik meg.
 
-> Minta a pontos szerkezetre: `data/demo-reservation.json` (a „Demó adat" gomb ezt tölti).
+> Demó szerkezet (régi, osztály-alapú): `data/demo-reservation.json`.
 
 ## Fontos, őszinte korlátok
 

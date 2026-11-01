@@ -8,7 +8,7 @@
   :root{
     --bg:#0b1220; --panel:#111a2e; --card:#16233f; --line:#243352;
     --txt:#e7edf7; --muted:#9fb0cc; --accent:#3b82f6;
-    --free:#16a34a; --reserved:#dc2626; --na:#9ca3af;
+    --free:#16a34a; --reserved:#dc2626; --na:#6b7280;
   }
   @media (prefers-color-scheme: light){
     :root:not([data-theme="dark"]){
@@ -46,19 +46,38 @@
   .pill{padding:3px 9px;border-radius:999px;font-weight:600}
   .pill.free{background:rgba(22,163,74,.15);color:var(--free)}
   .pill.res{background:rgba(220,38,38,.15);color:var(--reserved)}
-  /* MÁV SVG réteg felülszínezése kattintáskor */
-  .svgbox{overflow:auto;border:1px dashed var(--line);border-radius:10px;padding:8px;background:var(--bg)}
-  .svgbox svg{max-width:100%;height:auto}
-  .svgbox g[id^="ules_"]{fill:var(--free)}
-  .svgbox g[id^="ules_"].seat-disabled,
-  .svgbox g[id^="ules_"].seat-forbidden,
-  .svgbox g[id^="ules_"].bicycleSeat{fill:var(--reserved)}
+  .pill.na{background:rgba(107,114,128,.18);color:var(--muted)}
+  /* MÁV SVG: minden ules_NNN alatt 4 réteg (foglalhato | foglalt | kijelolt | nem_foglalhato);
+     az adapter data-state-et ír a csoportra, itt csak az odaillő réteg látszik */
+  .svgbox{overflow:auto;border:1px dashed var(--line);border-radius:10px;padding:8px;background:#E7EAED}
+  .svgbox svg{display:block;max-width:100%;height:auto;margin:0 auto}
+  .svgbox.vertical svg{max-width:340px}
+  .svgbox g[data-state]>g{display:none}
+  .svgbox g[data-state="free"]>g[id^="foglalhato"],
+  .svgbox g[data-state="reserved"]>g[id^="foglalt"],
+  .svgbox g[data-state="unavailable"]>g[id^="nem_foglalhato"]{display:inline}
+  .svgbox g[data-state="free"] [id^="bg"]{fill:#dcfce7;stroke:#16a34a}
+  .svgbox g[data-state="free"] [id^="tamla"]{fill:#16a34a}
+  .svgbox g[data-state="reserved"] [id^="bg"]{fill:#fee2e2;stroke:#dc2626}
+  .svgbox g[data-state="reserved"] [id^="tamla"]{fill:#dc2626}
+  .svgbox g[data-state]{cursor:pointer}
+  .svgbox g[data-state].pick [id^="bg"]{stroke:#0057BE;stroke-width:3}
+  /* régi/demó SVG rétegek nélkül: maga a csoport színeződik */
+  .svgbox g[data-state="free"]{fill:var(--free)}
+  .svgbox g[data-state="reserved"]{fill:var(--reserved)}
+  .svgbox g[data-state="unavailable"]{fill:var(--na)}
+  .seatinfo{margin-top:8px;font-size:13px;color:var(--muted);min-height:20px}
+  .services{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:12px}
   /* rácsos tartalék */
-  .grid{display:flex;flex-direction:column;gap:6px;margin-top:8px}
-  .srow{display:flex;gap:6px;align-items:center}
-  .seat{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff}
+  .grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .comp{border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--card)}
+  .comp .ct{font-size:11px;color:var(--muted);margin-bottom:6px}
+  .comp .cs{display:grid;grid-template-columns:repeat(2,34px);gap:6px}
+  .comp.open .cs{grid-template-columns:repeat(4,34px)}
+  .seat{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:600}
   .seat.free{background:var(--free)}
   .seat.reserved{background:var(--reserved)}
+  .seat.unavailable{background:var(--na);opacity:.6}
   .err{color:#fca5a5;font-size:13px;margin-top:6px;white-space:pre-wrap}
 </style>
 </head>
@@ -92,7 +111,10 @@
 <script src="live/mav-reservation-adapter.js"></script>
 <script>
 (function(){
-  var FAC={bike:"🚲",wheelchair:"♿",quiet:"🤫",family:"👪",power:"🔌"};
+  var FAC={bike:"🚲",wheelchair:"♿",quiet:"🤫",family:"👪",power:"🔌",table:"🍽️"};
+  var FACNAME={bike:"kerékpár",wheelchair:"akadálymentes",quiet:"csendes",family:"családi",power:"konnektor",table:"asztalnál"};
+  var STATE={free:"szabad",reserved:"foglalt",unavailable:"nem foglalható"};
+  function esc(t){ return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
   var trainbar=document.getElementById("trainbar");
   var panel=document.getElementById("panel");
   var info=document.getElementById("trainInfo");
@@ -103,9 +125,11 @@
 
   function render(train){
     current=train; sel=null;
-    info.innerHTML = train.from||train.to
-      ? "<b>"+(train.name||"")+"</b> · "+(train.from||"?")+" → "+(train.to||"?")+(train.date?" · "+train.date:"")
-      : "<b>"+(train.name||"Vonat")+"</b>";
+    info.innerHTML = (train.from||train.to
+      ? "<b>"+esc(train.name)+"</b> · "+esc(train.from||"?")+(train.departureTime?" "+esc(train.departureTime):"")+
+        " → "+esc(train.to||"?")+(train.arrivalTime?" "+esc(train.arrivalTime):"")+(train.date?" · "+esc(train.date):"")
+      : "<b>"+esc(train.name||"Vonat")+"</b>") +
+      (train.services&&train.services.length?'<ul class="services">'+train.services.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul>":"");
     trainbar.innerHTML="";
     train.cars.forEach(function(car,idx){
       var el=document.createElement("div");
@@ -114,9 +138,10 @@
       var pct = car.total? Math.round(((car.total-car.availableSeatsCount)/car.total)*100):0;
       var fac=(car.facilities||[]).map(function(f){return FAC[f]||"";}).join(" ");
       el.innerHTML =
-        '<div class="silh">'+(hasSeats?"🚃":"🚆")+'</div>'+
-        '<div class="lbl">Kocsi '+car.label+'</div>'+
-        '<div class="meta">'+(hasSeats?(car.availableSeatsCount+" szabad / "+car.total):(car.type||"nincs térkép"))+'</div>'+
+        '<div class="silh">'+(car.kind==="bike"?"🚲":hasSeats?"🚃":"🚆")+'</div>'+
+        '<div class="lbl">Kocsi '+esc(car.label)+'</div>'+
+        '<div class="meta">'+esc(car.type||"")+'</div>'+
+        '<div class="meta">'+(hasSeats?(car.availableSeatsCount+" szabad / "+car.total):"nincs térkép")+'</div>'+
         (fac?'<div class="fac">'+fac+'</div>':'')+
         (hasSeats?('<div class="occbar"><span style="width:'+pct+'%;background:'+car.fullness.color+'"></span></div>'+
                    '<div class="occlbl">'+car.fullness.label+'</div>'):'');
@@ -133,28 +158,59 @@
     var legend='<div class="legend">'+
       '<span><b style="background:var(--free)"></b>szabad</span>'+
       '<span><b style="background:var(--reserved)"></b>foglalt</span>'+
-      (car.facilities&&car.facilities.length?'<span>'+car.facilities.map(function(f){return FAC[f]+" "+f;}).join(" · ")+'</span>':'')+
+      (car.unavailable.length?'<span><b style="background:var(--na)"></b>nem foglalható</span>':'')+
+      (car.facilities&&car.facilities.length?'<span>'+car.facilities.map(function(f){return FAC[f]+" "+FACNAME[f];}).join(" · ")+'</span>':'')+
       '</div>';
     var body;
-    var svg=car.svgHorizontal||car.svgVertical;
+    var narrow=window.matchMedia&&window.matchMedia("(max-width: 700px)").matches;
+    var vertical=narrow&&car.svgVertical;
+    var svg=vertical?car.svgVertical:(car.svgHorizontal||car.svgVertical);
     if(svg){
-      body='<div class="svgbox">'+svg+'</div>';
+      body='<div class="svgbox'+(vertical?" vertical":"")+'">'+svg+'</div>';
     } else {
-      // rácsos tartalék a kiolvasott ülés-listából
-      var cells=car.seats.map(function(s){
-        return '<div class="seat '+(s.reserved?"reserved":"free")+'" title="'+s.no+'. hely – '+(s.reserved?"foglalt":"szabad")+'">'+s.no+'</div>';
-      }).join("");
-      body='<div class="grid"><div class="srow">'+cells+'</div></div>';
+      // nincs MÁV-rajz: fülkénként rácsot rajzolunk a seats[] állapotából
+      var groups=[], byComp={};
+      car.seats.forEach(function(s){
+        var k=s.compartment||"–";
+        if(!byComp[k]){ byComp[k]=[]; groups.push(k); }
+        byComp[k].push(s);
+      });
+      var open=car.kind==="bike"||/termes/i.test(car.type);
+      body='<div class="grid">'+groups.map(function(k){
+        return '<div class="comp'+(open?" open":"")+'"><div class="ct">'+(car.kind==="bike"?"kerékpárhelyek":open?"szakasz "+esc(k):esc(k)+". fülke")+'</div><div class="cs">'+
+          byComp[k].map(function(s){
+            return '<div class="seat '+s.state+'" data-seat="'+esc(s.label)+'" title="'+esc(s.label)+'. '+(s.bike?"kerékpárhely":"hely")+
+              ' – '+STATE[s.state]+(s.position?" · "+s.position:"")+'">'+(s.bike?"🚲":esc(s.no))+'</div>';
+          }).join("")+'</div></div>';
+      }).join("")+'</div>';
     }
-    var occ=car.total-car.availableSeatsCount;
+    var occ=car.reserved.length, na=car.unavailable.length;
     panel.innerHTML =
-      '<h2>Kocsi '+car.label+' – ülés-térkép</h2>'+
+      '<h2>Kocsi '+esc(car.label)+(car.type?' · '+esc(car.type):'')+' – ülés-térkép</h2>'+
       legend+ body+
+      '<div class="seatinfo" id="seatinfo">'+(svg?"Koppints egy ülésre a részletekért.":"")+'</div>'+
       '<div class="counts">'+
         '<span class="pill free">● '+car.availableSeatsCount+' szabad</span>'+
         '<span class="pill res">● '+occ+' foglalt</span>'+
+        (na?'<span class="pill na">● '+na+' nem foglalható</span>':'')+
         '<span style="color:var(--muted)">összesen '+car.total+' hely · '+car.fullness.label+'</span>'+
       '</div>';
+    if(svg) wireSvgSeats(car);
+  }
+
+  // MÁV-rajz üléseire kattintva kiírjuk a hely adatait
+  function wireSvgSeats(car){
+    var byNo={}; car.seats.forEach(function(s){ byNo[String(Number(s.no))]=s; });
+    var out=document.getElementById("seatinfo");
+    panel.querySelectorAll(".svgbox g[data-state]").forEach(function(g){
+      g.addEventListener("click",function(){
+        panel.querySelectorAll(".svgbox g.pick").forEach(function(x){x.classList.remove("pick");});
+        g.classList.add("pick");
+        var s=byNo[String(Number(g.getAttribute("data-seat")))]||{label:g.getAttribute("data-seat"),state:g.getAttribute("data-state")};
+        out.innerHTML='<b>'+esc(s.label)+'. hely</b> – '+STATE[s.state]+(s.position?" · "+s.position:"")+
+          (s.compartment?" · "+esc(s.compartment)+". szakasz":"")+(s.services&&s.services.length?" · "+esc(s.services.join(", ")):"");
+      });
+    });
   }
 
   function loadFrom(obj,meta){
